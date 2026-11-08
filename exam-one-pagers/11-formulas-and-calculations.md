@@ -17,21 +17,28 @@ Keep all inputs in the units required by the chart or aircraft data. For weight 
 
 ## Aerodynamics and turns
 
-- **Dynamic pressure:** `q = ½ ρ V²`
-- **Lift:** `L = ½ ρ V² S C_L`
-- **Drag:** `D = ½ ρ V² S C_D`
-- **Load factor:** `n = lift / weight`; in a coordinated level turn, `n = 1 / cos(bank angle)`.
-- **Accelerated stall speed:** `V_S(n) = V_S(1) × √n` (same configuration and assumptions).
-- **Rate-one turn (approximate):** `3°/s`; turn radius in NM is approximately `groundspeed (kt) / 188.5`. Use the specified standard-rate formula/table when required.
+| Quantity | Formula / condition |
+|---|---|
+| Dynamic pressure | `q = ½ ρ V²` |
+| Lift / drag | `L = ½ ρ V² S C_L` / `D = ½ ρ V² S C_D` |
+| Load factor | `n = lift / weight`; `n = 1 / cos(bank)` in a coordinated level turn |
+| Accelerated stall speed | `V_S(n) = V_S(1) × √n`, same configuration and assumptions |
+| Rate-one turn | `3°/s`; approximate radius in NM = `groundspeed (kt) / 188.5` |
+
+Use the specified standard-rate formula/table when required.
 
 The lift equation is a model, not an operating limit. Use the AFM/POH for approved speeds, load limits, and performance.
 
 ## Wind and performance
 
-- Resolve wind relative to the **track/runway**: headwind component `= wind speed × cos(angle)`; crosswind component `= wind speed × sin(angle)`. A headwind reduces groundspeed; a tailwind increases it.
-- **Approximate TAS from IAS:** `TAS ≈ IAS × (1 + 0.02 × altitude in thousands of feet)`. This is a rough low-subsonic rule; temperature and instrument/position errors matter. Use the approved flight computer or performance data when accuracy matters.
-- **Pressure altitude:** indicated altitude corrected for non-standard pressure (set 1013.25 hPa and read the altimeter, or apply the approved correction).
-- **Density altitude:** pressure altitude corrected for non-standard temperature. Hot/high/humid conditions reduce density and generally degrade take-off, climb, and engine/propeller performance.
+| Calculation | Rule / meaning |
+|---|---|
+| Wind relative to track/runway | Headwind `= W × cos(angle)`; crosswind `= W × sin(angle)` |
+| Approximate TAS from IAS | `TAS ≈ IAS × (1 + 0.02 × altitude in thousands of feet)` |
+| Pressure altitude | Altimeter set to 1013.25 hPa, or approved pressure correction applied |
+| Density altitude | Pressure altitude corrected for non-standard temperature |
+
+A headwind reduces groundspeed; a tailwind increases it. The TAS rule is rough: temperature and instrument/position errors matter. Hot/high/humid conditions reduce density and generally degrade take-off, climb, and engine/propeller performance.
 
 For take-off and landing, interpolate charts only as instructed, apply all chart notes and corrections, and include surface, slope, wind, mass, temperature, pressure altitude, and obstacle effects as applicable. Never invent a correction factor.
 

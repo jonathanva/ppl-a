@@ -18,13 +18,29 @@ Pressure-gradient force starts wind from high toward low pressure; Coriolis defl
 
 Stability compares the parcel's temperature/lapse rate with the environment. A dry rising parcel cools about **3°C/1000 ft**; a saturated parcel cools more slowly, about **1.5°C/1000 ft** (both approximate and condition-dependent). Compare the environmental lapse rate with the dry/saturated adiabatic rates: stable air resists vertical displacement and favours layered cloud, haze and smoother flow; unstable air continues rising and favours cumulus, showers, thermals and turbulence. Moisture is measured through vapour pressure, mixing ratio and relative humidity (`actual vapour / saturation amount × 100%`); **dew point** is the temperature at which air becomes saturated by cooling. A small temperature/dew-point spread signals near saturation, not an exact cloud-base forecast.
 
-Clouds form when air cools to saturation or gains moisture. Stable air tends to stratiform cloud; unstable air to cumuliform cloud. Recognize Ci/Cs/Cc (high), As/Ac (middle), St/Sc/Ns (low/layered), Cu and Cb (vertical/convection). A warm front commonly brings a broad sequence of high cloud thickening/lowering to layered precipitation; a cold front is steeper and may bring a narrow band of showers, Cb, gusts and turbulence.
+Clouds form when air cools to saturation or gains moisture. Stable air tends to stratiform cloud; unstable air to cumuliform cloud. Recognize Ci/Cs/Cc (high), As/Ac (middle), St/Sc/Ns (low/layered), Cu and Cb (vertical/convection).
+
+| Typical feature | Warm front | Cold front |
+|---|---|---|
+| Lift | Gentle ascent over cold air | Cold air undercuts warm air more steeply |
+| Cloud | High cloud thickens/lowers into layers | Cumuliform cloud, potentially CB |
+| Weather | Widespread, prolonged precipitation and poor visibility | Narrower band of showers, gusts and turbulence |
+
+These are typical patterns, not a substitute for observing the actual front.
 
 Air-mass characteristics begin at the source region (continental/maritime, polar/tropical) and change over the route. Warm moist air over a cold surface is cooled and stabilized; cold air over a warmer surface is heated from below and destabilized. A polar-front depression develops through wave, mature-front and occlusion stages; pressure tendency and wind shifts help locate passage. In a typical Northern Hemisphere surface low, winds circulate counter-clockwise and inward; around a high, clockwise and outward, modified by friction and local terrain.
 
 ## 3. Hazards and weather interpretation
 
-Radiation fog favours clear skies, moist ground and light wind overnight; advection fog forms when moist air moves over a colder surface; frontal, steaming and orographic fog have different mechanisms. Precipitation may be continuous/stratiform or showery/convective. METAR visibility is not the same as runway visual range or an airborne slant view.
+| Fog | Formation |
+|---|---|
+| Radiation | Clear night, moist ground and light wind favour cooling to saturation |
+| Advection | Moist air moves over a colder surface |
+| Orographic | Moist air rises over terrain and cools |
+| Frontal | Rain evaporates into cooler air below a front |
+| Steaming | Cold air moves over warmer water |
+
+Precipitation may be continuous/stratiform or showery/convective. METAR visibility is not the same as runway visual range or an airborne slant view.
 
 Airframe icing requires supercooled water and cold aircraft surfaces: clear/glaze ice forms from larger drops; rime from smaller drops; mixed ice combines them. Ice distorts aerofoil shape, increases drag and can reduce control/stall margins. Carburettor icing is a separate induction hazard caused by venturi and fuel-vaporization cooling, possible in moist air over a broad temperature range. Remove contamination before flight; use only approved aircraft procedures.
 

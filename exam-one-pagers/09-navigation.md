@@ -27,9 +27,21 @@ Headwind reduces GS; tailwind increases it. `time (min) = 60 × distance (NM) / 
 
 True north is geographic; magnetic north follows Earth's field; compass north is the installed compass indication. **Variation** (charted, location-dependent) converts true↔magnetic; **deviation** (aircraft/equipment) is read from the compass card. Apply each correction once, with sign and convention stated, and normalize to 000°–359°. In the Northern Hemisphere, turning error uses UNOS (undershoot north, overshoot south); acceleration error on east/west headings uses ANDS.
 
-Q-codes: **QDM** magnetic bearing to station, **QDR** magnetic bearing from station, **QTE** true from, **QUJ** true to. Reciprocal bearings differ by 180°. RBI shows relative bearing from the aircraft nose; QDM is not the same as heading when wind/drift exists.
+| Bearing | Magnetic | True |
+|---|---|---|
+| To station | QDM | QUJ |
+| From station | QDR | QTE |
 
-**NDB/ADF:** low-/medium-frequency beacon and aircraft direction finder; relative bearing (RB) is measured clockwise from the nose, so in calm wind `QDM = magnetic heading + RB` (normalize to 360°). Night effect and shoreline refraction can disturb bearings. **VOR:** VHF line-of-sight aid; a radial is a magnetic bearing **from** the station. Set OBS, identify the station, then interpret CDI and TO/FROM. A full CDI deflection is angular (commonly at least 10° in course questions), not a fixed number of miles; two radials can define a fix. **DME:** slant-range distance to station, not ground distance directly beneath it; error is greatest near overhead. **VDF** derives a bearing from the aircraft's VHF transmission; QDR locates the aircraft from the station. Check tuning, identification, mode and signal quality before relying on indications.
+Reciprocal bearings differ by 180°. RBI shows relative bearing from the aircraft nose; QDM is not the same as heading when wind/drift exists.
+
+| Aid | What it provides | Important limitation |
+|---|---|---|
+| NDB/ADF | Relative bearing to LF/MF beacon | Night and shoreline effects can disturb bearings |
+| VOR | VHF radial: magnetic bearing **from** station | CDI deflection is angular, not a fixed distance |
+| DME | Slant-range distance to station | Difference from ground distance is greatest near overhead |
+| VDF | Ground station derives bearing from VHF transmission | QDR locates aircraft from the station |
+
+For NDB/ADF, relative bearing (RB) is measured clockwise from the nose: `QDM = magnetic heading + RB`, normalized to 360°. Heading and inbound ground track still differ in wind. For VOR, set OBS, identify the station, and interpret CDI and TO/FROM; two radials can define a fix. Check tuning, identification, mode and signal quality before relying on indications.
 
 ## 4. Radar, GNSS, and integrated planning
 

@@ -8,12 +8,12 @@
 
 The atmosphere is about 21% oxygen at altitude as well as at sea level, but total pressure and oxygen **partial pressure** fall with altitude. Less oxygen pressure is available to move oxygen from alveoli into blood. The ISA reference values are sea-level pressure 1013.25 hPa, temperature 15°C and density 1.225 kg/m³; they are a model, not the actual atmosphere.
 
-Gas-law relationships explain common flight effects:
-
-- **Boyle:** at constant temperature, pressure × volume is constant. Trapped gas expands as ambient pressure falls—ear, sinus, dental or intestinal discomfort.
-- **Charles:** at constant pressure, gas volume varies with absolute temperature (use kelvin in calculations).
-- **Dalton:** total pressure is the sum of component partial pressures; oxygen fraction stays similar while its partial pressure declines.
-- **Henry:** gas dissolved in liquid depends on pressure. Rapid decompression after scuba diving can release nitrogen bubbles, causing decompression sickness (DCS).
+| Gas law | Relationship | Aviation connection |
+|---|---|---|
+| Boyle | Pressure × volume is constant at constant temperature | Trapped gas expands on climb: ear, sinus or gut discomfort |
+| Charles | Volume varies with absolute temperature at constant pressure | Use kelvin when calculating |
+| Dalton | Total pressure is the sum of partial pressures | Oxygen partial pressure falls with altitude |
+| Henry | Gas dissolved in liquid depends on pressure | Pressure reduction after diving can release nitrogen bubbles (DCS) |
 
 **Hypoxia** is inadequate oxygen at tissue level. Hypoxic/hypobaric hypoxia comes from low oxygen pressure; anaemic hypoxia from reduced oxygen-carrying capacity (e.g. CO); stagnant/circulatory hypoxia from inadequate blood flow; histotoxic hypoxia from impaired cellular oxygen use. Early effects can include impaired night vision, euphoria, poor judgement, fatigue, headache, reduced coordination and slower decisions. Cyanosis may occur later. The pilot may not recognize impairment. Use oxygen as required/available, descend promptly, and land/seek assistance as appropriate; applicable oxygen rules depend on operation and jurisdiction.
 
@@ -27,11 +27,13 @@ Cones support central detail and colour; rods support dim-light/peripheral detec
 
 Visual illusions come from missing or misleading references: sloping terrain/cloud can resemble a false horizon; runway width/slope can distort perceived height; haze, water, snow or darkness remove depth cues; a single light may appear to move (autokinesis). Use a stabilized approach, chart/brief runway characteristics, and cross-check instruments rather than “chasing” a visual impression.
 
-The semicircular canals sense angular acceleration and the otolith organs sense linear acceleration/gravity. They can mislead in poor visual conditions:
+The semicircular canals sense angular acceleration; the otolith organs sense linear acceleration/gravity. In poor visual conditions they can mislead:
 
-- **Leans:** an unnoticed slow roll makes the later correction feel like a turn the other way.
-- **Coriolis:** moving the head during a sustained turn can cause tumbling vertigo.
-- **Somatogravic:** acceleration feels like pitch-up; deceleration may feel like pitch-down.
+| Illusion | Trigger | False sensation |
+|---|---|---|
+| Leans | Correcting an unnoticed slow roll | A turn in the opposite direction |
+| Coriolis | Head movement during a sustained turn | Tumbling/vertigo |
+| Somatogravic | Acceleration or deceleration | Pitch-up or pitch-down respectively |
 
 Keep the head still during turns and trust a reliable instrument cross-check when bodily sensation conflicts. Noise can damage hearing and impair radio comprehension; protect hearing and use clear phraseology/readbacks.
 

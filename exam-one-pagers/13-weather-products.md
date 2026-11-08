@@ -22,6 +22,18 @@
 
 ## METAR/TAF decoding cues
 
+**Illustrative METAR:** `METAR EBBR 121450Z 24012KT 9999 BKN020 18/12 Q1015`
+
+| Group | Interpretation |
+|---|---|
+| `EBBR 121450Z` | Station; day 12 at 14:50 UTC |
+| `24012KT` | Wind from 240° true at 12 kt |
+| `9999` | Visibility 10 km or more |
+| `BKN020` | Broken cloud, base 2,000 ft above aerodrome |
+| `18/12 Q1015` | Temperature 18°C, dew point 12°C, QNH 1015 hPa |
+
+This simplified example is not current weather. Reporting conventions and units vary by state.
+
 - Wind direction is **from** magnetic/true north as specified by the product; verify the convention in the reporting system. `VRB` means variable; `G` introduces gusts.
 - Visibility is reported in the units/format prescribed for the state. `CAVOK` is a defined coded condition, not simply “perfect weather”; check the applicable definition.
 - Cloud amount codes: `FEW`, `SCT`, `BKN`, `OVC`; cloud base is normally given in hundreds of feet above aerodrome level. `CB`/`TCU` identify convective cloud.

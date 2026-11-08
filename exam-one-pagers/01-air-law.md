@@ -12,14 +12,24 @@ For the Belgian course context, distinguish the federal competent authority (**D
 
 ## 2. Collision avoidance and aerodrome operations
 
-Right-of-way is not permission to endanger another aircraft. Apply the specific encounter rule:
+Right-of-way is not permission to endanger another aircraft:
 
-- **Head-on:** both aircraft alter course to the right.
-- **Converging:** the aircraft that has the other on its right gives way, subject to the stated aircraft categories and special cases.
-- **Overtaking:** the overtaking aircraft keeps clear and passes to the right.
-- Aircraft towing, gliders, balloons and airships have priority relationships set out in SERA; a powered aeroplane must not assume it has priority merely because it can manoeuvre.
+| Encounter | Basic rule |
+|---|---|
+| Head-on | Both aircraft alter course to the right. |
+| Converging | Aircraft with the other on its right gives way, subject to category-specific rules and exceptions. |
+| Overtaking | Overtaking aircraft keeps clear and passes to the right. |
+| Different aircraft categories | Towing aircraft, gliders, balloons and airships have specific priority relationships in SERA. |
 
-Know the circuit sequence—departure/upwind, crosswind, downwind, base, final—and determine circuit direction and height from published local information. A **PAPI** gives glidepath information: 2 red/2 white is on slope, more red indicates low, more white high. It does not replace a stabilized approach or the aircraft's visual/airspeed checks.
+**Circuit:** departure/upwind → crosswind → downwind → base → final. Determine direction and height from local information.
+
+| PAPI indication | Position relative to glidepath |
+|---|---|
+| More red than white | Low |
+| 2 red / 2 white | On slope |
+| More white than red | High |
+
+PAPI does not replace a stabilized approach or airspeed checks.
 
 ## 3. Airspace is three-dimensional
 
@@ -46,10 +56,13 @@ The semi-circular cruising-level system is based on magnetic track/course. The c
 
 ## 5. Altimetry and aeronautical information
 
-- **QNH:** altimeter indicates elevation on the ground and altitude above mean sea level in flight.
-- **QFE:** indicates height above the selected aerodrome/reference datum.
-- **1013.25 hPa / QNE:** standard setting used to reference flight levels.
-- A **transition altitude** is the published altitude for changing to standard pressure on climb; the **transition level** is the published level for changing back to QNH on descent. The layer between them prevents conflicting altitude/flight-level references.
+| Setting | Indication / reference |
+|---|---|
+| QNH | Elevation on the ground; altitude above mean sea level in flight |
+| QFE | Height above selected aerodrome/reference datum |
+| 1013.25 hPa / QNE | Standard pressure reference for flight levels |
+
+**Climb:** QNH → pass transition altitude → standard pressure. **Descent:** standard pressure → transition level → QNH. The transition layer separates the altitude and flight-level references.
 
 Use the current AIP for local TA/TL and QNH. **AIP** contains enduring aeronautical information; **NOTAM** announces time-critical changes; **AIRAC** is the coordinated cycle for significant information changes. Confirm chart edition, NOTAM validity and aerodrome status. A runway condition report gives surface condition by runway thirds; use the current report and aircraft performance data rather than guessing braking performance from a word such as “wet.”
 

@@ -5,9 +5,16 @@
 ## Route, track, heading
 
 - **Track** is the path over the ground; **heading** is where the nose points; **drift** is the difference caused mainly by wind.
-- Correct the planned track into wind: `true heading = true track + wind-correction angle (WCA)`. Add a correction toward the wind; subtract one away from it.
+- Correct the planned track into wind: `true heading = true track + signed wind-correction angle (WCA)`. Use a positive angle for a right correction and a negative angle for a left correction.
 - Convert references carefully: `true ↔ magnetic` uses local **variation**; `magnetic ↔ compass` uses the aircraft's **deviation card**. For east variation, magnetic is less than true; for west variation, magnetic is greater. Apply deviation using the sign/convention on the aircraft card.
 - Apply corrections in a declared order and label every course/heading as true, magnetic, or compass. The local chart's compass rose and the aircraft compass card are safer than an unlabelled “east is least” shortcut.
+
+```text
+TRUE TRACK ── + signed WCA ──> TRUE HEADING
+TRUE HEADING ── variation ──> MAGNETIC HEADING ── deviation card ──> COMPASS HEADING
+```
+
+**Example:** track 040°T with a 7° left correction gives heading 033°T. With 4°E variation, magnetic heading is 029°M; apply the aircraft's deviation card separately.
 
 ## Wind triangle
 
@@ -22,10 +29,14 @@ These component formulas are a planning approximation; a flight computer or vect
 
 ## Time, distance, and off-track
 
-- `time (min) = distance (NM) / GS (kt) × 60`
-- `distance (NM) = GS (kt) × time (min) / 60`
-- `1-in-60`: after flying `d` NM, `track error angle (degrees) ≈ 60 × cross-track error (NM) / d (NM)`.
-- To regain track: `closing angle ≈ 60 × off-track distance / distance remaining to the checkpoint`; add this correction to the original correction needed to maintain track.
+| Find | Calculation |
+|---|---|
+| Time in minutes | `distance (NM) / GS (kt) × 60` |
+| Distance in NM | `GS (kt) × time (min) / 60` |
+| Track error, small angles | `60 × cross-track error / distance flown` degrees |
+| Closing angle, small angles | `60 × off-track distance / distance remaining` degrees |
+
+To regain the destination, add the closing angle to the correction needed to maintain the original track, in the appropriate direction.
 
 Measure cross-track and along-track distances on the chart in the same units. The 1-in-60 rule is for small angles and short distances, not a substitute for replanning after a major deviation.
 

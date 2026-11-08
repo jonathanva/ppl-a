@@ -12,7 +12,14 @@ Noise-abatement routes and profiles reduce disturbance but never override obstac
 
 ## 2. Wind shear, microburst, and wake turbulence
 
-**Wind shear** is a rapid change in wind speed and/or direction over a short distance. On approach, an increasing headwind can first increase IAS/lift and raise the flight path; a decreasing headwind or increasing tailwind can reduce IAS/lift and cause sink. A thunderstorm microburst can produce an initial headwind, downdraft and then a diminishing headwind/tailwind—an especially dangerous sequence near the ground. Avoid storms and reported severe shear; if encountered, use the aircraft's approved escape procedure. Do not improvise flap/gear changes or a turn at low altitude.
+**Wind shear** is a rapid change in wind speed and/or direction over a short distance:
+
+| Initial wind change on approach | Initial aircraft response |
+|---|---|
+| Headwind increases | IAS/lift may increase; path tends high |
+| Headwind decreases or tailwind increases | IAS/lift may decrease; path tends low |
+
+**Microburst sequence:** increasing headwind → downdraft → decreasing headwind / tailwind. This is especially dangerous near the ground. Avoid storms and reported severe shear; if encountered, use the aircraft's approved escape procedure. Do not improvise flap/gear changes or a turn at low altitude.
 
 **Wake turbulence** is the pair of vortices produced by a lifting wing. It is strongest behind a heavy, clean, slow aircraft. Vortices descend and drift with wind; a light crosswind may leave one over the runway. For departure behind a larger aircraft, aim to lift off before its rotation point and climb above its path where safe; for landing, remain above its approach path and touch down beyond its touchdown point. Follow ATC spacing and local procedures. Jet blast is a separate exhaust hazard on the ground.
 

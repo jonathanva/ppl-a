@@ -17,6 +17,13 @@
 
 **Time:** `time (hours) = distance (NM) / groundspeed (kt)`. Convert the decimal fraction of an hour to minutes by multiplying by 60: 0.1 h = 6 min; 0.25 h = 15 min; 0.5 h = 30 min.
 
+```text
+NM ── × 1.852 ──> km          ft ── × 0.3048 ──> m
+NM <── ÷ 1.852 ── km          ft <── ÷ 0.3048 ── m
+```
+
+**Example:** 75 NM × 1.852 = **138.9 km**. Reverse the conversion by dividing by 1.852.
+
 ## Mass, volume, and temperature
 
 | Quantity | Conversion |

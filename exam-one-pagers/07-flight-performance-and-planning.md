@@ -10,7 +10,14 @@ Use the aircraft-specific POH/AFM loading data. The **datum** is the reference f
 
 Check loading for take-off and landing: fuel burn can change mass and CG. Forward CG generally increases stability/control force and may limit flare; aft CG reduces stability and may make recovery difficult. Secure baggage so it cannot shift. Do not use an example aircraft's arms or fuel density for another type.
 
-**Class calculation example:** a course C172 loading example has total mass 2451 lb and moment 103,100 lb·in, giving CG `103,100 / 2451 = 42.1 in`. After a specified fuel burn, the worked landing case is 2202 lb and 91,100 lb·in, CG about 41.4 in. The values belong to that example aircraft/data; the transferable skill is recomputing each phase and plotting both mass and CG inside the envelope.
+**Class C172 example:**
+
+| Phase | Mass | Total moment | CG = moment / mass |
+|---|---:|---:|---:|
+| Loaded | 2451 lb | 103,100 lb·in | 42.1 in |
+| After specified fuel burn | 2202 lb | 91,100 lb·in | 41.4 in |
+
+These are example aircraft/data, not operating limits. Recompute each phase and check both mass and CG against the envelope.
 
 ## 2. Take-off, climb, landing, and density altitude
 
@@ -22,7 +29,13 @@ Tables may separately give ground roll and distance over an obstacle. A chart's 
 
 **Pressure altitude** is found by setting 1013.25 hPa and reading the altimeter (or applying the specified correction). **Density altitude** is pressure altitude corrected for non-standard temperature; high DA means lower density and typically less engine/propeller performance, less lift at a given TAS and poorer climb/take-off performance. Read charts exactly as published; interpolate only as permitted and apply each adjustment once.
 
-`Vx` gives best angle (obstacle clearance); `Vy` best rate (altitude per time). Rate of climb is vertical distance/time; gradient is vertical/horizontal distance. Do not confuse rate, gradient and angle. For a rough small-angle check, a 5% climb gradient is about 3°.
+| Climb term | Measures | Useful for |
+|---|---|---|
+| Vx | Best angle: height gained per horizontal distance | Obstacle clearance |
+| Vy | Best rate: height gained per time | Gaining altitude in least time |
+| Gradient | Vertical / horizontal distance | Comparing height gained with distance |
+
+Do not confuse rate, gradient and angle. For a rough small-angle check, a 5% climb gradient is about 3°.
 
 ## 3. Fuel, distance, and flight logs
 
