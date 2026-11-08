@@ -1,5 +1,7 @@
 # Principles of Flight — course-topic summary
 
+[← Back to index](README.md)
+
 **Course scope:** airflow and aerofoil geometry; lift/drag; stability and controls; straight flight, climb/descent and turns; stall/spin; and propeller principles.
 
 ## 1. Aerofoil, airflow, and four forces

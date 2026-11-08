@@ -1,5 +1,7 @@
 # Core formulas and calculations
 
+[← Back to index](README.md)
+
 ## The flight-planning triangle
 
 | Need | Formula |

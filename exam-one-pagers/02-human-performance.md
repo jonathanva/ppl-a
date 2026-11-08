@@ -1,5 +1,7 @@
 # Human Performance — course-topic summary
 
+[← Back to index](README.md)
+
 **Course scope:** the body at altitude, gas laws, vision/hearing/balance, health and fitness, information processing, stress, decision-making and human error. The central lesson is that normal human senses and judgement can fail in predictable ways; procedures and margins are safety defences.
 
 ## 1. Pressure, gases, and oxygen

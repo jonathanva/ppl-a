@@ -1,5 +1,7 @@
 # Flight Performance and Planning — course-topic summary
 
+[← Back to index](README.md)
+
 **Course scope:** mass/balance; fuel and flight-log planning; take-off, climb and landing performance; pressure/density altitude; wind components; chart/table reading; and ICAO flight-plan information.
 
 ## 1. Mass, moment, and centre of gravity
