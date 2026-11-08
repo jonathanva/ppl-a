@@ -4,10 +4,14 @@
 
 ## Route, track, heading
 
-- **Track** is the path over the ground; **heading** is where the nose points; **drift** is the difference caused mainly by wind.
-- Correct the planned track into wind: `true heading = true track + signed wind-correction angle (WCA)`. Use a positive angle for a right correction and a negative angle for a left correction.
-- Convert references carefully: `true ↔ magnetic` uses local **variation**; `magnetic ↔ compass` uses the aircraft's **deviation card**. For east variation, magnetic is less than true; for west variation, magnetic is greater. Apply deviation using the sign/convention on the aircraft card.
-- Apply corrections in a declared order and label every course/heading as true, magnetic, or compass. The local chart's compass rose and the aircraft compass card are safer than an unlabelled “east is least” shortcut.
+| Term | Meaning / correction |
+|---|---|
+| Track / heading | Path over ground / direction the nose points; wind causes drift |
+| Wind-correction angle (WCA) | Correct desired track toward wind; right positive, left negative |
+| Variation | True ↔ magnetic; magnetic is less than true for east, greater for west |
+| Deviation | Magnetic ↔ compass; follow the aircraft's deviation card |
+
+Label directions true, magnetic or compass; use the chart and card, not an unlabelled mnemonic.
 
 ```text
 TRUE TRACK ── + signed WCA ──> TRUE HEADING
@@ -16,14 +20,18 @@ TRUE HEADING ── variation ──> MAGNETIC HEADING ── deviation card ─
 
 **Example:** track 040°T with a 7° left correction gives heading 033°T. With 4°E variation, magnetic heading is 029°M; apply the aircraft's deviation card separately.
 
+**Course, heading and bearing conversions:** for the full true/magnetic/compass chain, QDR/QTE, variation, deviation and worked examples, see [navigation conversions](14-q-codes-and-variation.md).
+
 ## Wind triangle
 
-For a wind speed `W`, angle `θ` between wind direction and desired track, and true airspeed `TAS`:
+For wind speed `W`, angle `θ` between wind direction and desired track, and true airspeed `TAS`:
 
-- Crosswind component: `W × sin θ`.
-- Headwind component: `W × cos θ` (positive headwind; tailwind is negative).
-- Approximate WCA: `arcsin(crosswind component / TAS)`, toward the wind.
-- Approximate groundspeed: `TAS × cos(WCA) − headwind component`.
+| Find | Formula |
+|---|---|
+| Crosswind | `W × sin θ` |
+| Headwind | `W × cos θ`; negative for tailwind |
+| Wind correction | `arcsin(crosswind / TAS)`, toward the wind |
+| Groundspeed | `TAS × cos(WCA) − headwind` |
 
 These component formulas are a planning approximation; a flight computer or vector triangle is better for large angles or strong winds. Check whether a wind direction is reported **from** (meteorological convention) or **to** (vector direction).
 
@@ -37,6 +45,8 @@ These component formulas are a planning approximation; a flight computer or vect
 | Closing angle, small angles | `60 × off-track distance / distance remaining` degrees |
 
 To regain the destination, add the closing angle to the correction needed to maintain the original track, in the appropriate direction.
+
+**Worked 1-in-60:** 5 NM right of track after 60 NM, with 60 NM remaining → track error ≈ 5° right, closing angle ≈ 5° → approximately **10° left** from the heading that produced the error, assuming unchanged wind and small angles.
 
 Measure cross-track and along-track distances on the chart in the same units. The 1-in-60 rule is for small angles and short distances, not a substitute for replanning after a major deviation.
 

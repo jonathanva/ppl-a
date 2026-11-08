@@ -15,6 +15,11 @@
 
 Keep all inputs in the units required by the chart or aircraft data. For weight and balance, include every item, use the correct datum/arm, and confirm the resulting mass and CG fall within the approved envelope.
 
+```text
+90 NM ÷ 120 kt = 0.75 h = 45 min
+0.75 h × 24 L/h = 18 L trip fuel (excludes taxi, reserves and other allowances)
+```
+
 ## Aerodynamics and turns
 
 | Quantity | Formula / condition |
@@ -44,9 +49,10 @@ For take-off and landing, interpolate charts only as instructed, apply all chart
 
 ## Sanity checks
 
-1. Label each value and convert to consistent units.
-2. Estimate the answer before calculating; reject impossible units or a result that contradicts the expected trend.
-3. Keep **IAS, TAS, and groundspeed** distinct; only groundspeed belongs in the map time-distance calculation.
-4. Treat reserves as a requirement to satisfy, not discretionary fuel available for the planned leg.
+```text
+LABEL UNITS → ESTIMATE → CALCULATE → CHECK TREND / LIMITS → CHECK RESERVES
+```
+
+Use **GS**, not IAS or TAS, for map time/distance. Reserves are required fuel, not discretionary trip fuel.
 
 **Sources:** [EASA Easy Access Rules for Aircrew](https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aircrew) (PPL(A) syllabus and aircraft operational data); [FAA Pilot's Handbook of Aeronautical Knowledge](https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak) (principles, performance, and weight-and-balance fundamentals); [NIST conversion factors](https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors). The aircraft's current POH/AFM is controlling for its actual performance.

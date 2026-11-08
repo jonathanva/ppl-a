@@ -1,6 +1,8 @@
 # EASA PPL(A) exam one-pagers
 
-These are compact, topic-by-topic revision summaries for the nine EASA/Part-FCL PPL(A) theoretical-knowledge subjects, plus four practical reference pages. The subject sheets follow the topics in the available Belgian course notes and question banks, explaining the main concepts, relationships, calculations, and distinctions rather than only giving general flight-safety reminders. They support study but do not replace the full course, current regulations, an operational checklist, or instructor guidance.
+These are compact, topic-by-topic revision summaries for the nine EASA/Part-FCL PPL(A) theoretical-knowledge subjects, plus practical reference pages. The subject sheets follow the topics in the available Belgian course notes and question banks, explaining the main concepts, relationships, calculations, and distinctions rather than only giving general flight-safety reminders. They support study but do not replace the full course, current regulations, an operational checklist, or instructor guidance.
+
+**Print:** [Download all summaries as one PDF](PPL-A-study-summaries.pdf). Each topic starts on a new page; longer summaries span multiple pages.
 
 ## The nine subjects
 
@@ -24,6 +26,7 @@ These are compact, topic-by-topic revision summaries for the nine EASA/Part-FCL 
 | Core formulas and calculations | [11-formulas-and-calculations.md](11-formulas-and-calculations.md) |
 | VFR navigation calculations | [12-vfr-navigation.md](12-vfr-navigation.md) |
 | Weather products and briefing | [13-weather-products.md](13-weather-products.md) |
+| Course, heading, bearings, variation, deviation and Q-code conversions | [14-q-codes-and-variation.md](14-q-codes-and-variation.md) |
 
 ## How to use these notes
 

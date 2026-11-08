@@ -6,15 +6,27 @@
 
 ## 1. Earth, coordinates, charts, and scale
 
-Latitude is north/south of the equator; longitude east/west of Greenwich. One minute of latitude is approximately 1 NM; one degree is 60 NM. Longitude distance contracts with latitude (`60 × cos(latitude)` NM per degree). Add latitude differences across the equator; handle N/S and E/W explicitly. Earth rotates 15° per hour: 1° longitude corresponds to 4 minutes of solar-time difference; aviation planning uses UTC.
+| Concept | Key relationship |
+|---|---|
+| Latitude | N/S of equator; 1′ ≈ 1 NM, 1° ≈ 60 NM |
+| Longitude | E/W of Greenwich; 1° ≈ `60 × cos(latitude)` NM |
+| Earth rotation | 15°/h; 1° longitude ≈ 4 min solar time; flight planning uses UTC |
+| Great circle / rhumb line | Shortest spherical route / constant angle to meridians |
+| Mercator / Lambert | Straight rhumb lines and scale increases with latitude / conformal conic suited to mid-latitudes |
+| Scale `1:n` | Convert map and real distances to the same units before dividing |
 
-A **great circle** is the shortest spherical route; a **rhumb line** crosses meridians at a constant angle. Mercator has straight meridians/parallels and straight rhumb lines but scale increases with latitude. Lambert conformal conic is suited to mid-latitude charts; a straight drawn line is not automatically a great circle. Read chart title, projection, scale, units, variation, legend, validity and airspace vertical limits.
-
-Scale `1:n`: convert map and real distances to the same units, then divide. For short coordinate problems, latitude distance is latitude difference in minutes (1′ ≈ 1 NM); longitude distance is longitude difference in minutes × cos(mean latitude). Combine north/south and east/west components as a right triangle. A chart feature is useful only when matched to coordinates, elevation/obstacles, symbology and current NOTAM/AIP information.
+For short coordinate problems, combine latitude and longitude distances as perpendicular components. Handle N/S and E/W signs, including crossings of the equator. Check chart projection, validity, variation, obstacles, airspace and NOTAM/AIP.
 
 ## 2. Wind triangle, course/heading, and time
 
 Distinguish **IAS/CAS/TAS/GS**: TAS is through the airmass; GS is over ground. Wind direction is reported **from**; reverse it to draw the vector. To maintain a desired track, apply wind correction toward the wind:
+
+| Speed | What it describes |
+|---|---|
+| IAS | Indicated by the airspeed indicator |
+| CAS | IAS corrected for instrument and position error |
+| TAS | Speed through the air |
+| GS | Speed over the ground; use for leg time and ETA |
 
 1. Plot true course (TC) and wind vector.
 2. Resolve head/tailwind and crosswind (or use an E6B).
@@ -34,6 +46,8 @@ True north is geographic; magnetic north follows Earth's field; compass north is
 
 Reciprocal bearings differ by 180°. RBI shows relative bearing from the aircraft nose; QDM is not the same as heading when wind/drift exists.
 
+**Worked course, heading, bearing and Q-code conversions:** see [navigation conversions](14-q-codes-and-variation.md).
+
 | Aid | What it provides | Important limitation |
 |---|---|---|
 | NDB/ADF | Relative bearing to LF/MF beacon | Night and shoreline effects can disturb bearings |
@@ -45,7 +59,13 @@ For NDB/ADF, relative bearing (RB) is measured clockwise from the nose: `QDM = m
 
 ## 4. Radar, GNSS, and integrated planning
 
-Primary radar detects reflected energy; SSR interrogates a transponder for coded replies. Know the purpose of assigned squawk/ident and emergency codes. GNSS provides position/time from satellites but depends on correct setup, database/chart awareness and signal integrity; cross-check with chart, terrain, timing and other cues. A display does not grant airspace clearance or replace lookout.
+| System | Provides / limitation |
+|---|---|
+| Primary radar | Detects reflected energy |
+| SSR | Interrogates transponder for coded replies; know assigned squawk/ident and emergency codes |
+| GNSS | Satellite position/time; depends on setup, database awareness and signal integrity |
+
+Cross-check chart, terrain and time; a display neither grants clearance nor replaces lookout.
 
 For each route leg, calculate TC, WCA, true/magnetic heading, wind, GS, distance, ETE/ETA and fuel. Check terrain/minimum safe altitude, controlled/notified airspace, frequencies, alternates and NOTAMs. A **PET/ETP** is the point where the time to continue to the destination equals the time to return/divert under the stated wind/performance assumptions. For a simple out-and-back with constant TAS and opposite wind, distance from departure is `total route distance × (GS_out / (GS_out + GS_home))`; confirm which direction each groundspeed represents before substituting. Radius of turn and holding questions depend on speed, bank, wind and the specified pattern—do not mix a ground track with an air heading. In a standard-rate turn, 3°/s gives 360° in two minutes; required bank increases with TAS.
 

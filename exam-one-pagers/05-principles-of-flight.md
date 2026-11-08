@@ -47,15 +47,29 @@ Contamination changes the aerofoil and may cause earlier separation. Weight chan
 | Lateral (wingtip-wingtip) | Pitch | Elevator |
 | Vertical | Yaw | Rudder |
 
-Static stability is the initial tendency after disturbance; dynamic stability describes the motion/damping afterward. Tail surfaces, dihedral and other design features contribute to stability. **CG position** is critical: forward CG generally increases longitudinal stability and control force; aft CG reduces stability and may make stall recovery difficult. Keep within the aircraft's loading envelope.
+| Concept | Meaning / effect |
+|---|---|
+| Static / dynamic stability | Initial tendency after disturbance / subsequent motion and damping |
+| Forward / aft CG | Generally more longitudinal stability and control force / less stability and potentially harder stall recovery |
+| Ailerons / rudder | Roll may produce adverse yaw / rudder coordinates |
+| Trim / mass balance | Relieves control force without moving CG / helps prevent flutter |
+| Inclinometer ball | Slip/skid, not bank angle (“step on the ball”) |
 
-Ailerons create roll but can produce adverse yaw; rudder coordinates the turn. Trim relieves sustained control force; it does not move the CG. Mass balance helps prevent flutter; do not exceed VNE or other limitations. The inclinometer ball indicates slip/skid, not bank angle (“step on the ball”).
+Tail surfaces and dihedral contribute to stability. Stay within the CG envelope, VNE and other aircraft limits.
 
 ## 4. Climb, descent, turns, stalls, and propellers
 
 In a climb, thrust must overcome drag and the rearward component of weight along the flight path. **Vx** is best angle (height per horizontal distance); **Vy** is best rate (height per time). During descent, gravity contributes along the path; use the approved pitch/power technique.
 
 In a coordinated level turn, `load factor n = 1/cos(bank)`. The horizontal lift component turns the aircraft; the vertical component must still support weight. More bank raises load and stall speed. Rate-one is 3°/s, but required bank depends on TAS. An uncoordinated stall can develop into autorotation.
+
+| Bank in coordinated level flight | Load factor | Stall speed relative to 1g |
+|---|---:|---:|
+| 0° | 1.00 | 1.00 × |
+| 30° | ≈ 1.15 | ≈ 1.07 × |
+| 60° | 2.00 | ≈ 1.41 × |
+
+The stall-speed ratios assume unchanged configuration and the same 1g reference. Bank alone is not the load factor in a non-level or uncoordinated manoeuvre.
 
 | Condition | Wing state | Key distinction |
 |---|---|---|
@@ -64,7 +78,12 @@ In a coordinated level turn, `load factor n = 1/cos(bank)`. The horizontal lift 
 
 Prevent spins by maintaining coordination and avoiding the stall. Recovery is type-specific: use the POH/AFM and instructor, never generic steps as an operational procedure.
 
-A propeller is a rotating aerofoil. Blade twist compensates for greater rotational speed at the tip. Fixed-pitch props are optimized around a design condition; a constant-speed unit changes blade pitch to maintain selected RPM—it does not hold aircraft speed constant. Torque, slipstream, gyroscopic effects and asymmetric blade thrust can create yaw/roll tendencies; coordinate with rudder.
+| Propeller | Key point |
+|---|---|
+| Blade twist | Accommodates greater rotational speed at the tip |
+| Fixed pitch | Optimized around a design condition |
+| Constant speed | Changes blade pitch to maintain selected RPM, **not aircraft speed** |
+| Yaw/roll tendencies | Torque, slipstream, gyroscopic effects and asymmetric thrust; coordinate with rudder |
 
 **Course notes:** [Principles of Flight lesson notes](../lesson-notes/51_Principles_of_Flight.md) · [Principles of Flight question bank](../51_Principles_of_Flight_(Aeroplane).md)
 

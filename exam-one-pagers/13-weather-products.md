@@ -4,10 +4,18 @@
 
 ## Build a decision-focused picture
 
-1. **Start broad:** synoptic chart, fronts, pressure pattern, significant-weather forecast, and upper winds.
-2. **Check the route and time:** low-level forecast/area forecast, aerodrome forecasts and observations, warnings, and forecast change groups.
-3. **Check hazards:** thunderstorms/CB, icing and freezing level, turbulence, mountain waves, fog/low cloud, wind shear, and strong surface/crosswind conditions.
-4. **Compare forecast with observations:** look for trends, deterioration, discrepancies, and alternate/escape options. Weather products are time- and location-specific; refresh them before departure.
+```text
+BIG PICTURE → ROUTE / TIME → HAZARDS → OBSERVATION vs FORECAST → OPTIONS
+```
+
+| Step | Check |
+|---|---|
+| Big picture | Synoptic chart, fronts, pressure, significant weather and upper winds |
+| Route / time | Area forecast, aerodrome forecasts/observations, warnings and change groups |
+| Hazards | CB, icing/freezing level, turbulence, waves, low cloud/fog, shear and crosswind |
+| Compare / decide | Trends, discrepancies, deterioration, alternates and escape options |
+
+Products are time- and location-specific; refresh the briefing before departure.
 
 ## Common coded products
 
@@ -34,11 +42,14 @@
 
 This simplified example is not current weather. Reporting conventions and units vary by state.
 
-- Wind direction is **from** magnetic/true north as specified by the product; verify the convention in the reporting system. `VRB` means variable; `G` introduces gusts.
-- Visibility is reported in the units/format prescribed for the state. `CAVOK` is a defined coded condition, not simply “perfect weather”; check the applicable definition.
-- Cloud amount codes: `FEW`, `SCT`, `BKN`, `OVC`; cloud base is normally given in hundreds of feet above aerodrome level. `CB`/`TCU` identify convective cloud.
-- Temperature/dew point close together means high relative humidity and a greater chance of saturation, but does not by itself prove fog or cloud.
-- TAF change groups such as `BECMG`, `TEMPO`, and `PROB` modify the forecast in defined ways. Read their time windows and probability; do not treat them as casual prose.
+| Cue | Read it as |
+|---|---|
+| Wind | **From** the reported direction; check true/magnetic convention; `VRB` variable, `G` gust |
+| Visibility / `CAVOK` | State-prescribed units; `CAVOK` is a defined coded condition, not simply “perfect” |
+| `FEW` / `SCT` / `BKN` / `OVC` | Cloud amount; base normally in hundreds of feet above aerodrome |
+| `CB` / `TCU` | Convective cloud |
+| Temperature / dew point close | Nearer saturation; does not prove fog or cloud |
+| `BECMG` / `TEMPO` / `PROB` | TAF change groups; read time window and probability |
 
 **Go/no-go is about the whole route and return**, including terrain, airspace, daylight, aircraft limits, pilot currency, alternates, and a margin for forecast error. Legal VMC minima are not a guarantee of safe VFR weather.
 

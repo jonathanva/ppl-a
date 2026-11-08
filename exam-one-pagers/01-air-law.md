@@ -6,9 +6,13 @@
 
 ## 1. Who makes the rules?
 
-The **Chicago Convention** establishes the international framework for civil aviation. **ICAO** publishes Standards and Recommended Practices (SARPs) in Annexes; states implement them and may notify differences. An ICAO Annex is not itself the same thing as a directly applicable EU regulation. In the EU framework, the Basic Regulation supports implementing rules such as **Part-FCL** (flight crew licensing) and **SERA** (rules of the air). EASA develops technical material and publishes consolidated Easy Access Rules; **AMC** describes an acceptable way to show compliance and **GM** explains the requirements.
-
-For the Belgian course context, distinguish the federal competent authority (**DGLV/BCAA**, under FOD Mobility) from **Skeyes**, the air navigation service provider. Regional authorities have responsibilities connected with regional aerodromes. These names explain the local system; use the current authority and AIP for operational decisions.
+| Body or document | Role to remember |
+|---|---|
+| Chicago Convention / ICAO Annexes | International framework and SARPs; states implement and may notify differences |
+| EU regulations | Directly applicable rules; **SERA**: rules of the air; **Part-FCL**: licensing |
+| EASA AMC / GM | Acceptable compliance methods / explanatory guidance; not the same as the regulation |
+| State authority / AIP / NOTAM | National implementation, local procedures and current changes |
+| Belgium: DGLV/BCAA / Skeyes | Federal aviation authority / air navigation service provider; regions also have aerodrome responsibilities |
 
 ## 2. Collision avoidance and aerodrome operations
 
@@ -33,9 +37,12 @@ PAPI does not replace a stabilized approach or airspeed checks.
 
 ## 3. Airspace is three-dimensional
 
-A charted boundary has a horizontal footprint **and vertical limits**. Read the class, base, top, lateral extent, activation times, entry requirements and published frequency. CTRs are surface-based control zones; CTAs/TMAs and airways may have stepped bases and tops. A route can be outside a volume laterally but inside it vertically—or the reverse. Temporary restrictions and activity times may be in NOTAMs, not the chart.
+```text
+POSITION → lateral boundary + base/top + altitude reference → class + active time
+         → clearance / radio / transponder / flight plan → frequency
+```
 
-For every airspace-crossing question, establish: **where am I; what class/volume; what altitude reference; is it active; what clearance, radio, transponder or flight plan is required?** VFR availability and services differ by class. ATC clearance does not remove the pilot's duty to remain safe and comply with the clearance.
+CTRs start at the surface; CTAs/TMAs and airways can have stepped limits. Check NOTAMs for temporary restrictions. ATC clearance does not remove the pilot's safety responsibilities.
 
 ## 4. VFR weather minima and cruising levels
 
@@ -62,9 +69,19 @@ The semi-circular cruising-level system is based on magnetic track/course. The c
 | QFE | Height above selected aerodrome/reference datum |
 | 1013.25 hPa / QNE | Standard pressure reference for flight levels |
 
-**Climb:** QNH → pass transition altitude → standard pressure. **Descent:** standard pressure → transition level → QNH. The transition layer separates the altitude and flight-level references.
+```text
+CLIMB:    QNH ── transition altitude ──> 1013.25 / flight level
+DESCENT:  QNH <── transition level ───── 1013.25 / flight level
+```
 
-Use the current AIP for local TA/TL and QNH. **AIP** contains enduring aeronautical information; **NOTAM** announces time-critical changes; **AIRAC** is the coordinated cycle for significant information changes. Confirm chart edition, NOTAM validity and aerodrome status. A runway condition report gives surface condition by runway thirds; use the current report and aircraft performance data rather than guessing braking performance from a word such as “wet.”
+| Information | Purpose |
+|---|---|
+| AIP | Enduring information; local transition altitude/level and procedures |
+| NOTAM | Time-critical changes; check validity and aerodrome status |
+| AIRAC | Coordinated cycle for significant information changes |
+| Runway condition report | Surface condition by runway thirds; use with aircraft performance data |
+
+Confirm chart edition and current QNH; “wet” alone does not determine braking performance.
 
 **Course notes:** [Air Law lesson notes](../lesson-notes/10_Air_Law.md) · [Air Law question bank](../10_Air_Law.md)
 

@@ -15,17 +15,33 @@ The atmosphere is about 21% oxygen at altitude as well as at sea level, but tota
 | Dalton | Total pressure is the sum of partial pressures | Oxygen partial pressure falls with altitude |
 | Henry | Gas dissolved in liquid depends on pressure | Pressure reduction after diving can release nitrogen bubbles (DCS) |
 
-**Hypoxia** is inadequate oxygen at tissue level. Hypoxic/hypobaric hypoxia comes from low oxygen pressure; anaemic hypoxia from reduced oxygen-carrying capacity (e.g. CO); stagnant/circulatory hypoxia from inadequate blood flow; histotoxic hypoxia from impaired cellular oxygen use. Early effects can include impaired night vision, euphoria, poor judgement, fatigue, headache, reduced coordination and slower decisions. Cyanosis may occur later. The pilot may not recognize impairment. Use oxygen as required/available, descend promptly, and land/seek assistance as appropriate; applicable oxygen rules depend on operation and jurisdiction.
+**Hypoxia** is inadequate oxygen at tissue level:
 
-**Carbon monoxide** binds strongly to haemoglobin and is odourless. Suspect it with headache, dizziness, nausea, confusion or unusual fatigue, especially if cabin heat/exhaust is involved. Stop the suspected source, ventilate/use oxygen as the checklist directs, land promptly and obtain medical attention. **Hyperventilation** is over-breathing, often stress-related; low CO₂ can cause tingling around mouth/fingers, dizziness, cramps and visual disturbance. If symptoms could be hypoxia, first address oxygen and altitude; don't assume harmless hyperventilation.
+| Mechanism | What goes wrong | Example |
+|---|---|---|
+| Hypoxic / hypobaric | Insufficient oxygen pressure | Altitude |
+| Anaemic | Reduced blood oxygen-carrying capacity | Carbon monoxide or blood loss |
+| Stagnant / circulatory | Inadequate blood flow | Circulatory impairment |
+| Histotoxic | Cells cannot use oxygen effectively | Certain toxins |
+
+Early effects can include impaired night vision, euphoria, poor judgement, fatigue, headache, reduced coordination and slower decisions. Cyanosis may occur later. The pilot may not recognize impairment. Use oxygen as required/available, descend promptly, and land/seek assistance as appropriate; applicable oxygen rules depend on operation and jurisdiction.
+
+| Hazard | Mechanism / cues | Response |
+|---|---|---|
+| Carbon monoxide | Odourless; binds haemoglobin. Headache, dizziness, nausea, confusion or fatigue; suspect cabin heat/exhaust | Stop suspected source; ventilate/use oxygen as directed; land promptly and seek medical help |
+| Hyperventilation | Over-breathing lowers CO₂; tingling, dizziness, cramps, visual disturbance | If hypoxia is possible, address oxygen and altitude first; do not assume hyperventilation |
 
 Rapid pressure change can also cause ear/sinus barotrauma. A cold may block the Eustachian tube and prevent equalization, particularly on descent. DCS risk after diving depends on dive profile and timing: follow current diving/aviation medical guidance, not old textbook waiting-time examples.
 
 ## 2. Vision, hearing, and balance
 
-Cones support central detail and colour; rods support dim-light/peripheral detection. Dark adaptation takes time and bright light disrupts it. Scan systematically to avoid blind spots and target fixation. At night, a slightly off-centre view may detect dim objects better than staring directly at them. Sunglasses should be suitable for aviation; polarized lenses can interfere with displays.
-
-Visual illusions come from missing or misleading references: sloping terrain/cloud can resemble a false horizon; runway width/slope can distort perceived height; haze, water, snow or darkness remove depth cues; a single light may appear to move (autokinesis). Use a stabilized approach, chart/brief runway characteristics, and cross-check instruments rather than “chasing” a visual impression.
+| Vision | Role / pitfall | Defence |
+|---|---|---|
+| Cones / rods | Central detail and colour / dim light and peripheral detection | Scan; use slightly off-centre viewing for dim objects |
+| Dark adaptation | Takes time; bright light disrupts it | Preserve night adaptation; polarized lenses may interfere with displays |
+| False horizon | Sloping terrain or cloud resembles a horizon | Cross-check instruments |
+| Runway / depth illusion | Width, slope, haze, water, snow or darkness distort height cues | Brief runway; fly a stabilized approach |
+| Autokinesis | A single light appears to move | Cross-check visual references and instruments |
 
 The semicircular canals sense angular acceleration; the otolith organs sense linear acceleration/gravity. In poor visual conditions they can mislead:
 
@@ -43,9 +59,19 @@ Use **I’M SAFE**—Illness, Medication, Stress, Alcohol, Fatigue, Emotion—as
 
 Attention selects some cues and filters others; expectation and confirmation bias can make a pilot overlook evidence that contradicts an initial diagnosis. Working memory is limited. The primary course question bank uses **5 ± 2 items for about 10–20 seconds**; other course/supplementary material gives different estimates, so use the primary bank's figure for that exam item. Chunking, written notes, checklists, readbacks and repetition reduce omissions.
 
-Stress can initially raise alertness, but excessive demand narrows attention and degrades memory, coordination and decision-making. Common hazardous attitudes include anti-authority, impulsivity, invulnerability, macho, resignation and complacency; use a deliberate pause, objective limits and another information source to challenge them. A “risky shift” can occur when a group accepts more risk together than individuals would alone. Latent system conditions and active errors can line up across multiple failed defences; checklists, monitoring, training and reporting can interrupt that chain.
+| Threat | Effect / defence |
+|---|---|
+| Excessive stress | Attention narrows; memory, coordination and decisions degrade |
+| Hazardous attitudes | Anti-authority, impulsivity, invulnerability, macho, resignation, complacency → pause and challenge with objective limits |
+| Risky shift | A group may accept more risk than its individuals |
+| Error chain | Latent conditions + active errors + failed defences → interrupt with monitoring, checklists, training and reporting |
 
-Situational awareness means perceiving what is happening, understanding its significance, and anticipating what happens next. Use the pilot-aircraft-environment-time picture; identify threats early and preserve options. A slip/lapse can be interrupted by checklists and monitoring; unfamiliar problems require analysis and a simple safe response. In any surprise: **fly the aircraft first**, then navigate, communicate, diagnose and use the applicable checklist. Diverting, going around, delaying or cancelling can be the correct outcome.
+```text
+SITUATIONAL AWARENESS: perceive cues → understand → anticipate
+SURPRISE: fly → navigate → communicate → diagnose / checklist
+```
+
+Identify threats early; preserve options. A diversion, go-around, delay or cancellation may be correct.
 
 **Course notes:** [Human Performance lesson notes](../lesson-notes/20_Human_Performance.md) · [Human Performance question bank](../20_Human_Performance.md)
 

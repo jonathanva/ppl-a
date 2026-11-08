@@ -6,7 +6,14 @@
 
 ## 1. Preparation and the pilot in command
 
-Before flight, review the aircraft's approved checklist and POH/AFM, defects/airworthiness, documents required for the operation, pilot fitness, weather, NOTAMs, airspace, route, fuel, mass/balance and take-off/landing performance. Brief passengers on belts, exits, emergency actions and equipment. Secure baggage and loose objects. The PIC remains responsible for safe conduct; an ATC clearance or passenger request does not remove that responsibility.
+| Before flight | Check |
+|---|---|
+| Pilot / aircraft | Fitness, documents, airworthiness/defects, POH/AFM and checklist |
+| Route / environment | Weather, NOTAMs, airspace, route and fuel |
+| Loading / performance | Mass and balance; take-off and landing performance |
+| People / cabin | Brief belts, exits, emergency actions and equipment; secure baggage |
+
+The PIC remains responsible for safe conduct, regardless of ATC clearance or passenger request.
 
 Noise-abatement routes and profiles reduce disturbance but never override obstacle clearance, aircraft limitations or safety. Avoid unnecessary low flight over built-up areas; use published departure/arrival procedures and the approved aircraft profile.
 
@@ -23,9 +30,21 @@ Noise-abatement routes and profiles reduce disturbance but never override obstac
 
 **Wake turbulence** is the pair of vortices produced by a lifting wing. It is strongest behind a heavy, clean, slow aircraft. Vortices descend and drift with wind; a light crosswind may leave one over the runway. For departure behind a larger aircraft, aim to lift off before its rotation point and climb above its path where safe; for landing, remain above its approach path and touch down beyond its touchdown point. Follow ATC spacing and local procedures. Jet blast is a separate exhaust hazard on the ground.
 
+| Following a larger aircraft | Flight-path picture | Ground reference |
+|---|---|---|
+| Departing behind a departure | Climb above its path where safe | Rotate before its rotation point |
+| Landing behind an arrival | Stay above its approach path | Touch down beyond its touchdown point |
+
+Published separation, ATC instructions, runway length and the aircraft's performance still govern.
+
 ## 3. Emergency and precautionary landings
 
-An **emergency landing** is forced by circumstances; a **precautionary landing** is chosen before the situation forces one. Assess a field early: size/shape, slope, surface/crops, obstacles, wind, approach path, escape route and people. Plan the approach while height and time remain. Control the aircraft first; make calls/checklist actions when workload permits.
+| Landing | When | Field assessment |
+|---|---|---|
+| Emergency | Circumstances force a landing | Size/shape, slope, surface/crops, obstacles and people |
+| Precautionary | Chosen before a situation forces one | Wind, approach path, escape route and available height/time |
+
+Control the aircraft first; make calls and use the checklist when workload permits.
 
 For ditching/over-water exposure, plan survival equipment for all occupants as required by the applicable rules and route. Brief exits and flotation. A life jacket inflated inside the cabin can obstruct egress; inflate it after leaving the aircraft unless the approved procedure directs otherwise. Aircraft-specific ditching speeds, flap, door and evacuation actions are from the POH/AFM.
 
@@ -43,7 +62,11 @@ Operational surface descriptions include **damp** (moisture changes the surface 
 
 ## 6. Other course areas
 
-Know local circuit direction/height, runway markings/signs and noise-sensitive areas from the AIP. Fire actions are source-specific: a suspected electrical fire may require electrical isolation, whereas engine fire, cabin smoke or CO may require different fuel, heat, ventilation and landing actions. Learn the type checklist rather than applying “master off” or “heat off” to every case. Flight plans support alerting/search-and-rescue; ELT and survival equipment aid location and recovery. For a route beyond gliding distance from land, assess flotation/survival equipment for all occupants and brief egress. Report occurrences when required. Flight-time definitions and aircraft-document requirements depend on the applicable rule and operation.
+| Topic | Remember |
+|---|---|
+| Local operations | AIP circuit direction/height, runway markings/signs and noise-sensitive areas |
+| Search and rescue | Flight plans support alerting; ELT and survival equipment aid recovery |
+| Reporting / paperwork | Report occurrences when required; flight-time and document rules depend on operation |
 
 **Course notes:** [Operational Procedures lesson notes](../lesson-notes/60_Operational_Procedures.md) · [Operational Procedures question bank](../60_Operational_Procedures.md)
 

@@ -15,7 +15,11 @@
 | 1 degree of latitude | 60 NM (approximately) |
 | 1 minute of latitude | 1 NM (approximately) |
 
-**Time:** `time (hours) = distance (NM) / groundspeed (kt)`. Convert the decimal fraction of an hour to minutes by multiplying by 60: 0.1 h = 6 min; 0.25 h = 15 min; 0.5 h = 30 min.
+**Time:** `distance (NM) ÷ groundspeed (kt) = hours`; fractional hours × 60 = minutes.
+
+| Decimal hours | 0.1 h | 0.25 h | 0.5 h |
+|---|---:|---:|---:|
+| Minutes | 6 | 15 | 30 |
 
 ```text
 NM ── × 1.852 ──> km          ft ── × 0.3048 ──> m
@@ -37,6 +41,12 @@ NM <── ÷ 1.852 ── km          ft <── ÷ 0.3048 ── m
 | Fahrenheit to Celsius | `°C = (°F − 32) × 5/9` |
 
 **Fuel volume is not fuel mass.** Use the fuel grade's specified density or the aircraft's approved planning data when converting litres/gallons to kilograms/pounds. Do not treat US and Imperial gallons as interchangeable.
+
+```text
+Volume (L) × fuel density (kg/L) = fuel mass (kg)
+```
+
+**Example using a stated exercise density:** 40 L × 0.72 kg/L = 28.8 kg. Use the density specified for the actual fuel and conditions.
 
 ## Pressure and altitude
 

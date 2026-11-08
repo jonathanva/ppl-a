@@ -21,13 +21,26 @@ These are example aircraft/data, not operating limits. Recompute each phase and 
 
 ## 2. Take-off, climb, landing, and density altitude
 
-Take-off distance includes **ground roll** plus the distance to clear the chart's specified obstacle (commonly 50 ft/15 m in the course data). Landing distance likewise may be measured from a specified screen height, distinct from landing ground roll. Read which distance the question asks.
+```text
+TAKE-OFF: ground roll → airborne segment → specified obstacle height
+LANDING:  specified screen height → touchdown → landing ground roll
+```
 
-For every chart, check aircraft mass/configuration, pressure altitude, temperature, wind component, runway slope/surface, and every footnote/correction. Higher mass, higher pressure altitude, hotter temperature, tailwind, wet/soft/contaminated surface and uphill/downhill conditions as specified generally reduce margins. A headwind normally shortens ground distance; don't assume it cancels other penalties.
+| Chart input | Typical effect / check |
+|---|---|
+| Higher mass, pressure altitude or temperature | Generally reduces performance margin |
+| Headwind / tailwind | Normally shortens / lengthens ground distance |
+| Slope and surface | Check uphill/downhill and wet, grass, soft or contaminated corrections |
+| Configuration and footnotes | Apply the actual chart's corrections and obstacle height; do not borrow another aircraft's factors |
 
-Tables may separately give ground roll and distance over an obstacle. A chart's footnote may prescribe a temperature, grass, slope or wind correction; apply the correction printed with that particular table, not a remembered factor from another aircraft or lesson.
+Ground roll and total distance over an obstacle are different answers; course examples commonly use 50 ft/15 m.
 
 **Pressure altitude** is found by setting 1013.25 hPa and reading the altimeter (or applying the specified correction). **Density altitude** is pressure altitude corrected for non-standard temperature; high DA means lower density and typically less engine/propeller performance, less lift at a given TAS and poorer climb/take-off performance. Read charts exactly as published; interpolate only as permitted and apply each adjustment once.
+
+```text
+Pressure altitude + temperature correction → density altitude
+High / hot conditions → lower air density → generally longer take-off and poorer climb
+```
 
 | Climb term | Measures | Useful for |
 |---|---|---|
@@ -39,7 +52,12 @@ Do not confuse rate, gradient and angle. For a rough small-angle check, a 5% cli
 
 ## 3. Fuel, distance, and flight logs
 
-For each leg: establish distance, true course, forecast wind, TAS, wind-correction angle, heading, groundspeed, time, fuel and ETA. Use **GS**, not TAS, for map distance/time: `time (h) = distance (NM) / GS (kt)`. Sum taxi/start, climb, route, alternate/contingency and final reserve as required by the rule/operation. Verify usable fuel, grade, quantity and consumption units. Convert litres/gallons to mass only using the correct fuel density and specified basis.
+```text
+Distance + true course + wind + TAS → WCA / heading / GS → time / ETA → trip fuel
+Trip fuel + taxi/start + climb + applicable alternate / contingency / final reserve
+```
+
+`time (h) = distance (NM) / GS (kt)`; use GS, not TAS. Verify usable fuel, grade, quantity, consumption units and the correct density when converting volume to mass.
 
 Update the plan from actual groundspeed and weather at checkpoints. Recalculate remaining time and fuel; plan alternates and diversion decision points while options remain. A flight log commonly records checkpoint, frequency, minimum safe altitude, planned altitude/FL, track/heading, GS, distance, ETE/ETA/ATA and fuel.
 

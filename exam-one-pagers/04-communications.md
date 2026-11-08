@@ -14,6 +14,14 @@ Use the ICAO spelling alphabet (Alfa, Bravo … Juliett … X-ray, Yankee, Zulu)
 
 A concise call normally gives **station called, aircraft callsign, position/intent/request**. Use the full callsign initially; abbreviate only after the station does so. Speak at an even pace and pause to allow another station to respond. Do not use casual wording in place of standard phraseology.
 
+```text
+STATION CALLED → YOUR CALLSIGN → POSITION / ALTITUDE → REQUEST OR INTENTIONS
+                         ↑
+           listen before transmitting
+```
+
+Include only details appropriate to the call and applicable local procedures.
+
 ## 3. Readback and phraseology
 
 Read back clearances and safety-critical instructions as required, including runway, taxi/hold-short, route, level/altitude, heading, transponder code, frequency and altimeter setting. Include the callsign. A readback is not a paraphrase: repeat the value accurately and listen for correction.
@@ -36,7 +44,13 @@ Distinguish information from an instruction and a clearance. A frequency change 
 
 Make the call on the current frequency if possible; state callsign, nature of problem, intentions, position/level/heading and assistance needed. Fly the aircraft first; transmit when workload permits. Other stations should not obstruct a distress call.
 
-Transponder codes: **7700** general emergency; **7600** radio communication failure; **7500** unlawful interference. If radio fails, follow the aircraft checklist and state/AIP procedure: verify equipment/frequency, try the other radio/appropriate frequency, use blind transmission or relay if appropriate, select the prescribed code and maintain safe flight. In controlled airspace, follow the published failure procedure; the shortest-route/last-clearance options depend on the airspace and rule.
+| Squawk | Meaning |
+|---|---|
+| **7700** | General emergency |
+| **7600** | Radio communication failure |
+| **7500** | Unlawful interference |
+
+**Radio failure:** fly safely → check equipment/frequency → try alternate radio/frequency → blind transmit or relay if appropriate → select prescribed code → follow aircraft checklist and published state/AIP procedure. Controlled-airspace actions depend on the applicable rule.
 
 ## 5. Q-codes and weather broadcasts
 
@@ -47,6 +61,8 @@ Transponder codes: **7700** general emergency; **7600** radio communication fail
 | QNH / QFE / QNE | Pressure setting | MSL altitude / height above datum / standard pressure |
 
 Relative bearing is measured from the aircraft nose; don't confuse it with magnetic course. **ATIS** broadcasts current aerodrome information; note its letter and report it on first contact where required. **VOLMET** broadcasts meteorological reports for aerodromes/areas. METAR/TAF abbreviations such as FEW, SCT, BKN and OVC describe cloud amounts.
+
+[Worked Q-code and variation conversions](14-q-codes-and-variation.md)
 
 **Course notes:** [Communications lesson notes](../lesson-notes/40_Communication.md) · [Communication question bank](../40_Communication.md)
 

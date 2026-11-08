@@ -6,7 +6,15 @@
 
 ## 1. Structure, controls, and landing gear
 
-The main airframe comprises wing, fuselage, empennage, powerplant and landing gear. Ribs shape the wing; spars are major spanwise structural members; stringers stiffen skin. In **grid/space-frame** construction the frame carries loads and covering is non-structural; **monocoque** relies on the skin; **semi-monocoque** shares load between frames/stringers and stressed skin; **sandwich/honeycomb** bonds thin faces to a light core. Composites may conceal internal damage; use approved inspection/maintenance methods.
+| Structure | Load path / function |
+|---|---|
+| Ribs / spars / stringers | Shape wing / major spanwise members / stiffen skin |
+| Grid or space frame | Frame carries loads; covering is non-structural |
+| Monocoque | Skin carries loads |
+| Semi-monocoque | Stressed skin shares load with frames and stringers |
+| Sandwich / honeycomb | Thin faces bonded to a light core |
+
+Main components: wing, fuselage, empennage, powerplant and landing gear. Composite damage can be hidden: use approved inspection methods.
 
 Primary controls: ailerons (roll), elevator/stabilator (pitch), rudder (yaw). Flaps, slats, spoilers/speedbrakes and trim are secondary devices. Trim relieves control force; different tab types have different motions. Inspect control freedom, range, locking, hinges and surfaces as the checklist requires. Landing gear includes struts, fork/axle, wheel, tyre, brakes and (where fitted) shimmy damping. Inspect damage, tyre condition/pressure and leakage; bonding/electrical continuity matters during fuelling.
 
@@ -23,7 +31,14 @@ Many light aeroplanes use a four-stroke opposed piston engine. Its cycle is **in
 
 Dual magnetos are engine-driven ignition sources independent of the aircraft electrical system. Magneto checks normally produce a specified RPM drop; roughness can indicate plug/magneto trouble. A faulty grounding/P-lead circuit can leave a magneto live with the key off—treat the propeller as live. Follow the run-up and shutdown checklist.
 
-A carburettor meters fuel into airflow; throttle controls airflow/power, mixture control changes fuel-air ratio, and primer assists starting. Venturi pressure drop and fuel evaporation cool the carburettor, so icing can occur in moist air over a broad temperature range, even without visible airframe icing. Carb heat supplies warm air and commonly reduces fixed-pitch RPM. Fuel injection meters fuel near cylinders and avoids venturi carb ice, but does not prevent every induction-system fault. Check fuel grade, selector, quantity, vents and drains; water collects at low points. Bond during refuelling and remove ignition sources.
+| Fuel system | Function / caution |
+|---|---|
+| Carburettor | Meters fuel into airflow; throttle controls airflow/power, mixture changes ratio, primer aids start |
+| Carb ice | Venturi and evaporation cooling → ice in moist air, even without airframe ice; carb heat commonly reduces fixed-pitch RPM |
+| Fuel injection | Meters fuel near cylinders; avoids venturi carb ice, not every induction fault |
+| Fuel checks | Grade, selector, quantity, vents and drains; water collects at low points |
+
+Bond during refuelling and remove ignition sources.
 
 ## 3. Propeller, cooling, lubrication, electrical
 
@@ -32,6 +47,15 @@ A propeller is a rotating aerofoil; blade twist accommodates higher rotational s
 Airflow/cooling fins and oil remove engine heat. Excess temperature can lead to detonation, wear or seizure; cowl flaps and mixture/power procedures vary by type. Oil lubricates, cools, cleans, seals and reduces noise; monitor pressure/temperature and use the POH service/check limits.
 
 The electrical system may include battery, alternator/generator, regulator, buses, breakers, relays and loads. An alternator failure leaves only limited battery capacity; shed loads as directed. Magneto ignition may continue even if radios or electrically driven instruments fail. Identify which systems are engine-, vacuum-, pressure- or electrically driven.
+
+```text
+ENGINE → magnetos → ignition
+ENGINE → alternator → electrical bus → radios / electrical loads
+                         ↑
+                      battery
+```
+
+Schematic only: the electrical and ignition installations differ by aircraft; use its actual system diagram and checklist.
 
 ## 4. Flight instruments and indications
 
