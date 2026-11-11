@@ -4,14 +4,13 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const template = fs.readFileSync(`${__dirname}/template.html`, 'utf8');
-const source = template.slice(template.indexOf('function legacyReport('), template.indexOf('function start()'));
+const source = template.slice(template.indexOf('function showWeak()'), template.indexOf('function start()'));
 const elements = { weak: {}, refreshHistory: {} };
 const context = vm.createContext({
   Uint8Array, TextDecoder, atob, console,
   $: id => elements[id],
   cfg: () => ({}),
   updateStart: () => {},
-  showWeak: () => {},
   esc: String,
   shuffle: a => a,
   BANK: [{ subject: 'Navigation', code: '90', questions: [
@@ -43,8 +42,22 @@ test('legacy and new reports combine in chronological order', async () => {
   assert.equal(context.repoHistory.runs[0].legacy, true);
   assert.equal(context.repoHistory.wrong['90-001'], 0);
   assert.equal(context.repoHistory.wrong['90-002'], 1);
+  assert.match(elements.weak.innerHTML, /1 complete report/);
+  assert.match(elements.weak.innerHTML, /1 older report is excluded/);
+  assert.doesNotMatch(elements.weak.innerHTML, /67%/);
   assert.equal(context.buildPool([0], true, 1)[0].id, '90-002');
   assert.equal(context.buildPool([0], false, 3).length, 3);
+});
+
+test('complete reports alone determine topic percentages', () => {
+  context.repoHistory = { wrong: {}, runs: [
+    { legacy: true, topics: { 'Navigation › Weather': [0, 3] } },
+    { legacy: false, topics: { 'Navigation › Weather': [2, 2] } },
+    { legacy: false, topics: { 'Navigation › Weather': [1, 2] } }
+  ] };
+  context.showWeak();
+  assert.match(elements.weak.innerHTML, /75% of 4/);
+  assert.match(elements.weak.innerHTML, /2 complete reports/);
 });
 
 test('loading errors disable history-based prioritisation', async () => {

@@ -130,11 +130,12 @@ $('none').onclick = () => { boxes().forEach(b => b.checked = false); updateStart
 
 function showWeak() {
   const h = repoHistory; const agg = {};
-  h.runs.forEach(r => Object.entries(r.topics).forEach(([k,v]) => { agg[k] = agg[k] || [0,0]; agg[k][0] += v[0]; agg[k][1] += v[1]; }));
+  const complete = h.runs.filter(r => !r.legacy);
+  complete.forEach(r => Object.entries(r.topics).forEach(([k,v]) => { agg[k] = agg[k] || [0,0]; agg[k][0] += v[0]; agg[k][1] += v[1]; }));
   const rows = Object.entries(agg).filter(([,v]) => v[1] >= 2).map(([k,v]) => [k, v[0]/v[1], v[1]]).sort((a,b) => a[1]-b[1]).slice(0,8);
-  $('weak').innerHTML = `<b>📉 Weakest sub-topics from saved results</b> <span class="muted">(${h.runs.length} saved quizzes)</span>` +
-    (rows.length ? '<table>' + rows.map(([k,p,n]) => `<tr><td>${esc(k)}</td><td>${Math.round(p*100)}% of ${n}</td></tr>`).join('') + '</table>' : '<p class="muted">Not enough saved answers yet.</p>') +
-    (h.runs.some(r => r.legacy) ? '<p class="muted">Older reports include scores only for topics with mistakes; their correct-only topics are unavailable.</p>' : '') +
+  $('weak').innerHTML = `<b>📉 Weakest sub-topics from saved results</b> <span class="muted">(${complete.length} complete ${complete.length === 1 ? 'report' : 'reports'})</span>` +
+    (rows.length ? '<table>' + rows.map(([k,p,n]) => `<tr><td>${esc(k)}</td><td>${Math.round(p*100)}% of ${n}</td></tr>`).join('') + '</table>' : '<p class="muted">Save more quizzes to see topic scores (at least two answers per topic).</p>') +
+    (h.runs.length > complete.length ? `<p class="muted">${h.runs.length - complete.length} older ${h.runs.length - complete.length === 1 ? 'report is' : 'reports are'} excluded from topic scores because ${h.runs.length - complete.length === 1 ? 'it lacks' : 'they lack'} complete answer data. Missed questions still count for prioritisation.</p>` : '') +
     '<button id="refreshHistory">Refresh saved results</button>';
   $('refreshHistory').onclick = loadHistory;
 }
