@@ -20,7 +20,9 @@ Open [`flashcards.html`](flashcards.html) in a browser (download it from GitHub 
 
 ## Quiz app
 
-`docs/quiz.html` has all 902 questions. Pick one or more subjects and get 20 random questions. Wrong answers are explained, and the summary shows the score per subject and the sub-topics to re-study. Questions come from `quiz/questions/*.json`, explanations from `quiz/explanations/*.json`; rebuild with `python3 quiz/build.py`.
+`docs/quiz.html` has all 902 questions. Pick one or more subjects and choose the number of questions (20 by default). Wrong answers are explained, and the summary shows the score per subject and the sub-topics to re-study. Questions come from `quiz/questions/*.json`, explanations from `quiz/explanations/*.json`; rebuild with `python3 quiz/build.py`.
+
+The start page reads saved reports from `results/` on the configured repository and branch, so progress is shared across browsers. Save each completed report to the repository to include it; a download alone does not sync. Refresh saved results after saving elsewhere. Older reports contain only scores for topics with mistakes, so their correct-only topics cannot be included. New reports include a machine-readable record of every answer. **Prioritise questions I got wrong before** selects questions with the most outstanding mistakes first within each subject; a later correct answer reduces that question's priority by one.
 
 **Hosting:** after merging to `main`, enable GitHub Pages (Settings → Pages → Deploy from branch → `main` / `/docs`). The quiz is then at `https://jonathanva.github.io/ppl-a/quiz.html`.
 

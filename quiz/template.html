@@ -40,7 +40,7 @@
   .pill.ok { background:#12281b; color:var(--ok); } .pill.mid { background:#2a2414; color:var(--warn); } .pill.bad { background:#2c1517; color:var(--bad); }
   .score { font-size:42px; font-weight:800; }
   a { color:var(--accent); }
-  input[type=text], input[type=password] { width:100%; background:#0f1419; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:8px; font:inherit; margin:4px 0 8px; }
+  input[type=text], input[type=password], input[type=number] { width:100%; background:#0f1419; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:8px; font:inherit; margin:4px 0 8px; }
   details summary { cursor:pointer; color:var(--accent); }
   .hide { display:none; }
   kbd { background:#243044; border:1px solid #33425a; border-radius:4px; padding:0 5px; font-size:12px; }
@@ -51,20 +51,22 @@
 
 <section id="start">
   <h1>✈️ PPL(A) Quiz Trainer</h1>
-  <div class="muted">Pick one or more subjects. Each quiz has <b>20 random questions</b>. Wrong answers are explained, and the summary tells you which sub-topics to re-study.</div>
+  <div class="muted">Pick one or more subjects and choose how many questions to practise. Wrong answers are explained, and the summary tells you which sub-topics to re-study.</div>
   <div class="card">
     <div class="row" style="margin:0 0 10px"><b>Subjects</b>
       <button id="all">Select all</button><button id="none">Clear</button></div>
     <div class="subjects" id="subjects"></div>
+    <label class="muted">Number of questions <input type="number" id="count" value="20" min="1" step="1"></label>
     <div class="row">
       <label><input type="checkbox" id="focus"> Prioritise questions I got wrong before</label>
     </div>
+    <div class="muted">Uses saved results from the repository. Questions missed more often are selected first within each subject; correct answers reduce their priority.</div>
     <div class="row">
       <button class="primary" id="go" disabled>Start 20-question quiz</button>
       <span class="muted" id="poolinfo"></span>
     </div>
   </div>
-  <div class="card" id="weak" hidden></div>
+  <div class="card" id="weak" aria-live="polite"></div>
   <details class="card"><summary>⚙️ Save reports to the GitHub repo (optional)</summary>
     <p class="muted">A web page cannot write to your repo by itself. Either download the report and commit it, or paste a <b>fine-grained personal access token</b> (only this repository, permission <i>Contents: read &amp; write</i>) and the quiz will commit the report into <code>results/</code> for you. Or run <code>python3 quiz/serve.py</code> locally: then it uses your own git login and needs no token. The token is stored only in this browser (localStorage).</p>
     <label class="muted">Repository (owner/name)<input type="text" id="cfgRepo" value="jonathanva/ppl-a"></label>
@@ -93,12 +95,11 @@
 <script>
 const BANK = /*__DATA__*/[];
 const REPO_URL = 'https://github.com/jonathanva/ppl-a/blob/main/';
-const N = 20;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-const HKEY = 'ppl-quiz-history-v1', CKEY = 'ppl-quiz-config-v1';
-const history = () => JSON.parse(localStorage.getItem(HKEY) || '{"runs":[],"wrong":{}}');
+const CKEY = 'ppl-quiz-config-v1';
+let repoHistory = { runs: [], wrong: {} }, historyReady = false, historyRequest = 0;
 let quiz = null;
 
 /* ---------- start screen ---------- */
@@ -111,36 +112,113 @@ const boxes = () => [...document.querySelectorAll('#subjects input')];
 function updateStart() {
   const sel = boxes().filter(b => b.checked);
   const n = sel.reduce((t,b) => t + BANK[+b.value].questions.length, 0);
-  $('go').disabled = !sel.length;
-  $('go').textContent = `Start ${Math.min(N, n)}-question quiz`;
-  $('poolinfo').textContent = sel.length ? `${n} questions in pool from ${sel.length} subject${sel.length>1?'s':''}` : 'Select at least one subject';
+  const count = Number($('count').value);
+  const valid = Number.isSafeInteger(count) && count >= 1 && count <= n;
+  $('count').max = n || BANK.reduce((t,s) => t + s.questions.length, 0);
+  $('go').disabled = !sel.length || !valid || ($('focus').checked && !historyReady);
+  $('go').textContent = `Start ${valid ? count : 0}-question quiz`;
+  $('poolinfo').textContent = !sel.length ? 'Select at least one subject' :
+    !valid ? `Enter a whole number between 1 and ${n}` :
+    $('focus').checked && !historyReady ? 'Load saved results before using prioritisation' :
+    `${n} questions in pool from ${sel.length} subject${sel.length>1?'s':''}`;
 }
 boxes().forEach(b => b.onchange = updateStart);
+$('count').oninput = updateStart;
+$('focus').onchange = updateStart;
 $('all').onclick = () => { boxes().forEach(b => b.checked = true); updateStart(); };
 $('none').onclick = () => { boxes().forEach(b => b.checked = false); updateStart(); };
 
 function showWeak() {
-  const h = history(); const agg = {};
+  const h = repoHistory; const agg = {};
   h.runs.forEach(r => Object.entries(r.topics).forEach(([k,v]) => { agg[k] = agg[k] || [0,0]; agg[k][0] += v[0]; agg[k][1] += v[1]; }));
   const rows = Object.entries(agg).filter(([,v]) => v[1] >= 2).map(([k,v]) => [k, v[0]/v[1], v[1]]).sort((a,b) => a[1]-b[1]).slice(0,8);
-  if (!rows.length) { $('weak').hidden = true; return; }
-  $('weak').hidden = false;
-  $('weak').innerHTML = `<b>📉 Your weakest sub-topics so far</b> <span class="muted">(${h.runs.length} quizzes taken, this browser)</span><table>` +
-    rows.map(([k,p,n]) => `<tr><td>${esc(k)}</td><td>${Math.round(p*100)}% of ${n}</td></tr>`).join('') + '</table>';
+  $('weak').innerHTML = `<b>📉 Weakest sub-topics from saved results</b> <span class="muted">(${h.runs.length} saved quizzes)</span>` +
+    (rows.length ? '<table>' + rows.map(([k,p,n]) => `<tr><td>${esc(k)}</td><td>${Math.round(p*100)}% of ${n}</td></tr>`).join('') + '</table>' : '<p class="muted">Not enough saved answers yet.</p>') +
+    (h.runs.some(r => r.legacy) ? '<p class="muted">Older reports include scores only for topics with mistakes; their correct-only topics are unavailable.</p>' : '') +
+    '<button id="refreshHistory">Refresh saved results</button>';
+  $('refreshHistory').onclick = loadHistory;
+}
+
+function legacyReport(text, name) {
+  const topics = {}, wrong = [];
+  const section = text.split('## Sub-topics to re-study')[1]?.split('## Missed questions')[0] || '';
+  for (const line of section.split('\n')) {
+    const m = line.match(/^\|\s*(.+? › .+?)\s*\|\s*(\d+)\/(\d+)\s*\|/);
+    if (m) topics[m[1]] = [+m[2], +m[3]];
+  }
+  const missed = text.split('## Missed questions')[1] || '';
+  for (const m of missed.matchAll(/_\((\d{2}-\d{3}),[^\n]*?\)_/g)) wrong.push(m[1]);
+  const stamp = name.match(/quiz-(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})/);
+  const date = stamp ? `${stamp[1]}-${stamp[2]}-${stamp[3]}T${stamp[4]}:${stamp[5]}:00Z` : name;
+  return { date, topics, answers: wrong.map(id => ({id, ok:false})), legacy:true };
+}
+function parseReport(text, name) {
+  const match = text.match(/<!-- PPL-QUIZ-RESULT-V1 ([A-Za-z0-9+/=]+) -->/);
+  if (!match) return legacyReport(text, name);
+  const bytes = Uint8Array.from(atob(match[1]), c => c.charCodeAt(0));
+  const data = JSON.parse(new TextDecoder().decode(bytes));
+  if (!data || typeof data.date !== 'string' || !Array.isArray(data.answers) || typeof data.topics !== 'object' || !data.topics ||
+      data.answers.some(a => typeof a.id !== 'string' || typeof a.ok !== 'boolean') ||
+      Object.values(data.topics).some(v => !Array.isArray(v) || v.length !== 2 || !Number.isInteger(v[0]) || !Number.isInteger(v[1]) || v[0] < 0 || v[1] < v[0])) {
+    throw new Error(`Invalid result data in ${name}`);
+  }
+  return { date: data.date, topics: data.topics, answers: data.answers, legacy:false };
+}
+async function loadHistory() {
+  const requestId = ++historyRequest;
+  historyReady = false; updateStart();
+  $('weak').textContent = 'Loading saved results from the repository…';
+  try {
+    const c = cfg(), repo = c.repo || 'jonathanva/ppl-a', branch = c.branch || 'main';
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('Invalid repository name in settings.');
+    const headers = { Accept:'application/vnd.github+json' };
+    if (c.token) headers.Authorization = 'Bearer ' + c.token;
+    const request = async url => {
+      const response = await fetch(url, {headers, cache:'no-store'});
+      if (!response.ok) throw new Error(`GitHub returned ${response.status}: ${response.statusText}`);
+      return response.json();
+    };
+    const tree = await request(`https://api.github.com/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
+    if (tree.truncated) throw new Error('Repository file list was truncated; cannot load all results.');
+    const files = tree.tree.filter(f => f.type === 'blob' && /^results\/quiz-[0-9-]+\.md$/.test(f.path));
+    const runs = await Promise.all(files.map(async f => {
+      if (!c.token) {
+        const url = `https://raw.githubusercontent.com/${repo}/${encodeURIComponent(branch)}/${f.path}`;
+        const response = await fetch(url, {cache:'no-store'});
+        if (!response.ok) throw new Error(`Could not load ${f.path}: HTTP ${response.status}`);
+        return parseReport(await response.text(), f.path);
+      }
+      const blob = await request(`https://api.github.com/repos/${repo}/git/blobs/${f.sha}`);
+      if (blob.encoding !== 'base64') throw new Error(`Unexpected encoding for ${f.path}`);
+      const bytes = Uint8Array.from(atob(blob.content.replace(/\s/g,'')), c => c.charCodeAt(0));
+      return parseReport(new TextDecoder().decode(bytes), f.path);
+    }));
+    runs.sort((a,b) => String(a.date).localeCompare(String(b.date)));
+    const wrong = {};
+    runs.forEach(r => r.answers.forEach(a => { wrong[a.id] = Math.max(0, (wrong[a.id] || 0) + (a.ok ? -1 : 1)); }));
+    if (requestId !== historyRequest) return;
+    repoHistory = {runs, wrong};
+    historyReady = true; showWeak();
+  } catch (e) {
+    if (requestId !== historyRequest) return;
+    $('weak').innerHTML = `<b>Could not load saved results.</b> <span class="muted">${esc(e.message)} Prioritisation is unavailable until results can be loaded.</span> <button id="refreshHistory">Retry</button>`;
+    $('refreshHistory').onclick = loadHistory;
+  }
+  updateStart();
 }
 
 /* ---------- build & run quiz ---------- */
-function buildPool(sel, focus) {
-  const wrong = history().wrong;
-  const per = sel.map(i => shuffle(BANK[i].questions.map(q => ({...q, subject: BANK[i].subject, code: BANK[i].code}))));
-  if (focus) per.forEach(p => p.sort((a,b) => (wrong[b.id]||0) - (wrong[a.id]||0) || Math.random()-.5));
+function buildPool(sel, focus, count) {
+  const wrong = repoHistory.wrong;
+  const per = shuffle([...sel]).map(i => shuffle(BANK[i].questions.map(q => ({...q, subject: BANK[i].subject, code: BANK[i].code}))));
+  if (focus) per.forEach(p => p.sort((a,b) => (wrong[b.id]||0) - (wrong[a.id]||0)));
   const out = []; let k = 0;
-  while (out.length < N && per.some(p => p.length)) { const p = per[k++ % per.length]; if (p.length) out.push(p.shift()); }
+  while (out.length < count && per.some(p => p.length)) { const p = per[k++ % per.length]; if (p.length) out.push(p.shift()); }
   return shuffle(out);
 }
 function start() {
   const sel = boxes().filter(b => b.checked).map(b => +b.value);
-  const qs = buildPool(sel, $('focus').checked);
+  const qs = buildPool(sel, $('focus').checked, Number($('count').value));
   quiz = { qs, i: 0, answers: [], started: new Date(), subjects: sel.map(i => BANK[i].subject) };
   $('start').classList.add('hide'); $('result').classList.add('hide'); $('quiz').classList.remove('hide');
   render();
@@ -218,20 +296,15 @@ function reportMarkdown() {
       if (q.note) m += `   - Remember: ${q.note}\n`;
     });
   }
-  return m;
-}
-function saveHistory() {
-  const h = history(), s = stats(), topics = {};
+  const topics = {};
   Object.entries(s.topic).forEach(([k,v]) => topics[k] = [v.ok, v.n]);
-  quiz.answers.forEach(a => { if (!a.ok) h.wrong[a.q.id] = (h.wrong[a.q.id]||0) + 1; else if (h.wrong[a.q.id]) h.wrong[a.q.id] = Math.max(0, h.wrong[a.q.id] - 1); });
-  h.runs.push({ date: quiz.started.toISOString(), score: quiz.answers.filter(a => a.ok).length, total: quiz.answers.length, topics });
-  h.runs = h.runs.slice(-200);
-  localStorage.setItem(HKEY, JSON.stringify(h));
+  const data = JSON.stringify({date:quiz.started.toISOString(), topics, answers:quiz.answers.map(a => ({id:a.q.id, ok:a.ok}))});
+  let encoded = ''; new TextEncoder().encode(data).forEach(b => encoded += String.fromCharCode(b));
+  return m + `\n<!-- PPL-QUIZ-RESULT-V1 ${btoa(encoded)} -->\n`;
 }
 function finish() {
   $('quiz').classList.add('hide'); $('result').classList.remove('hide');
   const total = quiz.answers.length, ok = quiz.answers.filter(a => a.ok).length, s = stats();
-  saveHistory();
   const weak = Object.entries(s.topic).filter(([,v]) => v.ok < v.n).sort((a,b) => a[1].ok/a[1].n - b[1].ok/b[1].n);
   let h = `<h1>Result</h1><div class="card"><div class="score">${ok}/${total} ${pill(ok/total)}</div><div class="muted">${esc(quiz.subjects.join(' · '))}</div></div>`;
   h += `<h2>By subject</h2><div class="card"><table>` + Object.entries(s.subj).map(([k,v]) => `<tr><td>${esc(k)}</td><td>${v.ok}/${v.n}</td><td>${pill(v.ok/v.n)}</td></tr>`).join('') + `</table></div>`;
@@ -252,10 +325,10 @@ function finish() {
   h += `<h2>Save this report</h2><div class="card"><div class="row" style="margin:0"><button id="dl">⬇ Download .md</button><button id="repo">☁ Save to repo (results/)</button></div><div class="muted" id="saveMsg" style="margin-top:8px"></div></div>`;
   h += `<div class="row"><button class="primary" id="again">New quiz</button></div>`;
   $('result').innerHTML = h;
-  const name = `quiz-${quiz.started.toISOString().slice(0,16).replace(/[:T]/g,'-')}.md`;
+  const name = `quiz-${quiz.started.toISOString().replace(/[-:.TZ]/g,'')}-${Math.floor(Math.random()*1000000)}.md`;
   $('dl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([reportMarkdown()], {type:'text/markdown'})); a.download = name; a.click(); };
   $('repo').onclick = () => saveToRepo(name);
-  $('again').onclick = () => { $('result').classList.add('hide'); $('start').classList.remove('hide'); showWeak(); window.scrollTo(0,0); };
+  $('again').onclick = () => { $('result').classList.add('hide'); $('start').classList.remove('hide'); loadHistory(); window.scrollTo(0,0); };
   window.scrollTo(0, 0);
 }
 
@@ -265,9 +338,13 @@ async function saveToRepo(name) {
   const c = cfg(), msg = $('saveMsg');
   msg.textContent = 'Saving…';
   try {
-    const l = await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, content: reportMarkdown() }) }).catch(() => null);
-    if (l && l.ok) { const j = await l.json(); msg.textContent = '✅ ' + j.message; return; }
-  } catch (e) {}
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      const l = await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, content: reportMarkdown() }) });
+      const j = await l.json();
+      msg.textContent = (l.ok ? '✅ ' : '❌ ') + j.message;
+      return;
+    }
+  } catch (e) { msg.textContent = '❌ Local save failed: ' + e.message; return; }
   if (!c.token) { msg.textContent = 'No token configured and local save server not running. Use Download, run python3 quiz/serve.py, or add a token in the ⚙️ panel.'; return; }
   const bytes = new TextEncoder().encode(reportMarkdown());
   let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
@@ -281,9 +358,9 @@ async function saveToRepo(name) {
     msg.innerHTML = r.ok ? `✅ Saved: <a target="_blank" href="${esc(j.content.html_url)}">results/${esc(name)}</a>` : `❌ ${esc(j.message || r.status)}`;
   } catch (e) { msg.textContent = '❌ ' + e.message; }
 }
-const c0 = cfg(); if (c0.repo) { $('cfgRepo').value = c0.repo; $('cfgBranch').value = c0.branch; $('cfgToken').value = c0.token || ''; }
-$('cfgSave').onclick = () => { localStorage.setItem(CKEY, JSON.stringify({ repo: $('cfgRepo').value.trim(), branch: $('cfgBranch').value.trim(), token: $('cfgToken').value.trim() })); alert('Saved in this browser.'); };
-$('cfgClear').onclick = () => { localStorage.removeItem(CKEY); $('cfgToken').value = ''; };
+const c0 = cfg(); if (c0.repo) { $('cfgRepo').value = c0.repo; $('cfgBranch').value = c0.branch || 'main'; $('cfgToken').value = c0.token || ''; }
+$('cfgSave').onclick = () => { localStorage.setItem(CKEY, JSON.stringify({ repo: $('cfgRepo').value.trim(), branch: $('cfgBranch').value.trim(), token: $('cfgToken').value.trim() })); loadHistory(); alert('Saved in this browser.'); };
+$('cfgClear').onclick = () => { localStorage.removeItem(CKEY); $('cfgToken').value = ''; $('cfgRepo').value = 'jonathanva/ppl-a'; $('cfgBranch').value = 'main'; loadHistory(); };
 
 $('go').onclick = start; $('next').onclick = next;
 $('quit').onclick = () => { if (confirm('Quit this quiz?')) { $('quiz').classList.add('hide'); $('start').classList.remove('hide'); } };
@@ -292,7 +369,7 @@ document.addEventListener('keydown', e => {
   if (e.key >= '1' && e.key <= '4') { const q = quiz.qs[quiz.i], pos = +e.key - 1; if (q.order[pos] !== undefined) choose(q.order[pos]); }
   else if (e.key === 'Enter') next();
 });
-updateStart(); showWeak();
+updateStart(); loadHistory();
 </script>
 </body>
 </html>

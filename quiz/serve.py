@@ -38,12 +38,15 @@ class Handler(SimpleHTTPRequestHandler):
         RESULTS.mkdir(exist_ok=True)
         path = RESULTS / name
         path.write_text(data["content"], encoding="utf-8")
-        git("add", str(path))
+        added = git("add", str(path))
+        if added.returncode:
+            return self.reply(500, {"message": f"Saved results/{name} locally; git add failed: {added.stderr.strip()}"})
         c = git("commit", "-m", f"Add quiz result {name}", "--", str(path))
+        if c.returncode:
+            return self.reply(500, {"message": f"Saved results/{name} locally; git commit failed: {(c.stderr + c.stdout).strip()}"})
         p = git("push")
-        if c.returncode or p.returncode:
-            err = (c.stderr + c.stdout + p.stderr).strip()[-300:]
-            return self.reply(200, {"message": f"Saved results/{name} locally; git failed: {err}"})
+        if p.returncode:
+            return self.reply(500, {"message": f"Committed results/{name} locally; git push failed: {p.stderr.strip()}"})
         self.reply(200, {"message": f"Saved and pushed results/{name}"})
 
 
