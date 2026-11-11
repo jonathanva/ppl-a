@@ -1,0 +1,88 @@
+# Air Law — course-topic summary
+
+[← Back to index](README.md)
+
+**Course scope:** international and European rule structure; rules of the air; collision avoidance; aerodromes; airspace; altimetry; VFR minima; AIS; and local procedures. This follows the repository's Belgian course notes while keeping operational rules anchored to current EASA/state sources.
+
+## 1. Who makes the rules?
+
+| Body or document | Role to remember |
+|---|---|
+| Chicago Convention / ICAO Annexes | International framework and SARPs; states implement and may notify differences |
+| EU regulations | Directly applicable rules; **SERA**: rules of the air; **Part-FCL**: licensing |
+| EASA AMC / GM | Acceptable compliance methods / explanatory guidance; not the same as the regulation |
+| State authority / AIP / NOTAM | National implementation, local procedures and current changes |
+| Belgium: DGLV/BCAA / Skeyes | Federal aviation authority / air navigation service provider; regions also have aerodrome responsibilities |
+
+## 2. Collision avoidance and aerodrome operations
+
+Right-of-way is not permission to endanger another aircraft:
+
+| Encounter | Basic rule |
+|---|---|
+| Head-on | Both aircraft alter course to the right. |
+| Converging | Aircraft with the other on its right gives way, subject to category-specific rules and exceptions. |
+| Overtaking | Overtaking aircraft keeps clear and passes to the right. |
+| Different aircraft categories | Towing aircraft, gliders, balloons and airships have specific priority relationships in SERA. |
+
+**Circuit:** departure/upwind → crosswind → downwind → base → final. Determine direction and height from local information.
+
+| PAPI indication | Position relative to glidepath |
+|---|---|
+| More red than white | Low |
+| 2 red / 2 white | On slope |
+| More white than red | High |
+
+PAPI does not replace a stabilized approach or airspeed checks.
+
+## 3. Airspace is three-dimensional
+
+```text
+POSITION → lateral boundary + base/top + altitude reference → class + active time
+         → clearance / radio / transponder / flight plan → frequency
+```
+
+CTRs start at the surface; CTAs/TMAs and airways can have stepped limits. Check NOTAMs for temporary restrictions. ATC clearance does not remove the pilot's safety responsibilities.
+
+## 4. VFR weather minima and cruising levels
+
+Airspace classes differ in access and ATS:
+
+| Class | VFR access and service (summary) |
+|---|---|
+| A | IFR only; VFR not permitted. |
+| B | VFR permitted subject to clearance; all flights receive separation. |
+| C | VFR requires clearance/radio; ATC separates VFR from IFR and provides traffic information between VFR flights. |
+| D | VFR requires clearance/radio; separation is generally between IFR flights, with traffic information to VFR. |
+| E | IFR is controlled; VFR generally needs no clearance, but is not separated from other VFR. |
+| F/G | Advisory/information services; no ATC separation for VFR. |
+
+Services and class availability must be checked against the actual chart/AIP. VMC minima also depend on **altitude band, class, speed category, and state-specific rule**. The course examples use 5 km visibility below FL100 and 8 km at/above FL100; standard cloud separation is taught as 1500 m horizontal/1000 ft vertical, with special low-level and Class B wording in the bank. Always identify class and altitude first, then apply the current SERA/state table; “clear of cloud and surface in sight” is not interchangeable with standard separation.
+
+The semi-circular cruising-level system is based on magnetic track/course. The course diagram uses 000°–179° eastbound and 180°–359° westbound, with odd/even thousand-foot sets respectively; VFR levels may add 500 ft where the applicable rule requires it. Confirm the relevant altitude, route direction and local exception rather than treating a classroom diagram as universal.
+
+## 5. Altimetry and aeronautical information
+
+| Setting | Indication / reference |
+|---|---|
+| QNH | Elevation on the ground; altitude above mean sea level in flight |
+| QFE | Height above selected aerodrome/reference datum |
+| 1013.25 hPa / QNE | Standard pressure reference for flight levels |
+
+```text
+CLIMB:    QNH ── transition altitude ──> 1013.25 / flight level
+DESCENT:  QNH <── transition level ───── 1013.25 / flight level
+```
+
+| Information | Purpose |
+|---|---|
+| AIP | Enduring information; local transition altitude/level and procedures |
+| NOTAM | Time-critical changes; check validity and aerodrome status |
+| AIRAC | Coordinated cycle for significant information changes |
+| Runway condition report | Surface condition by runway thirds; use with aircraft performance data |
+
+Confirm chart edition and current QNH; “wet” alone does not determine braking performance.
+
+**Course notes:** [Air Law lesson notes](../lesson-notes/10_Air_Law.md) · [Air Law question bank](../10_Air_Law.md)
+
+**Primary references:** [EASA Easy Access Rules for Aircrew](https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aircrew) · [EASA Easy Access Rules for SERA](https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-standardised-european-rules-air) · [Regulation (EU) No 923/2012](https://eur-lex.europa.eu/eli/reg_impl/2012/923/oj)

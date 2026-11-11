@@ -1,0 +1,75 @@
+# Aircraft General Knowledge — course-topic summary
+
+[← Back to index](README.md)
+
+**Course scope:** aircraft structure and materials; flight controls; piston engines and propellers; fuel, ignition and cooling; electrical/oil systems; and flight/engine instruments.
+
+## 1. Structure, controls, and landing gear
+
+| Structure | Load path / function |
+|---|---|
+| Ribs / spars / stringers | Shape wing / major spanwise members / stiffen skin |
+| Grid or space frame | Frame carries loads; covering is non-structural |
+| Monocoque | Skin carries loads |
+| Semi-monocoque | Stressed skin shares load with frames and stringers |
+| Sandwich / honeycomb | Thin faces bonded to a light core |
+
+Main components: wing, fuselage, empennage, powerplant and landing gear. Composite damage can be hidden: use approved inspection methods.
+
+Primary controls: ailerons (roll), elevator/stabilator (pitch), rudder (yaw). Flaps, slats, spoilers/speedbrakes and trim are secondary devices. Trim relieves control force; different tab types have different motions. Inspect control freedom, range, locking, hinges and surfaces as the checklist requires. Landing gear includes struts, fork/axle, wheel, tyre, brakes and (where fitted) shimmy damping. Inspect damage, tyre condition/pressure and leakage; bonding/electrical continuity matters during fuelling.
+
+## 2. Piston engine, fuel, and ignition
+
+Many light aeroplanes use a four-stroke opposed piston engine. Its cycle is **intake → compression → power → exhaust** over two crankshaft revolutions. Combustion should follow the intended spark; **detonation** is abnormal rapid combustion/knocking after ignition, while **pre-ignition** begins before the intended spark. High temperature, unsuitable fuel, excessive load/low RPM and mixture errors can contribute; use approved power/fuel settings.
+
+| Stroke | Piston | Main event |
+|---|---|---|
+| Intake | Down | Intake valve open; mixture enters |
+| Compression | Up | Valves closed; mixture compressed |
+| Power | Down | Combustion pushes piston down |
+| Exhaust | Up | Exhaust valve open; gases leave |
+
+Dual magnetos are engine-driven ignition sources independent of the aircraft electrical system. Magneto checks normally produce a specified RPM drop; roughness can indicate plug/magneto trouble. A faulty grounding/P-lead circuit can leave a magneto live with the key off—treat the propeller as live. Follow the run-up and shutdown checklist.
+
+| Fuel system | Function / caution |
+|---|---|
+| Carburettor | Meters fuel into airflow; throttle controls airflow/power, mixture changes ratio, primer aids start |
+| Carb ice | Venturi and evaporation cooling → ice in moist air, even without airframe ice; carb heat commonly reduces fixed-pitch RPM |
+| Fuel injection | Meters fuel near cylinders; avoids venturi carb ice, not every induction fault |
+| Fuel checks | Grade, selector, quantity, vents and drains; water collects at low points |
+
+Bond during refuelling and remove ignition sources.
+
+## 3. Propeller, cooling, lubrication, electrical
+
+A propeller is a rotating aerofoil; blade twist accommodates higher rotational speed toward the tip. Fixed pitch is optimized around a design range. A constant-speed propeller changes blade angle to maintain selected **RPM**, not aircraft speed. Know the controls, governor indications and operating limits for the installed engine/propeller.
+
+Airflow/cooling fins and oil remove engine heat. Excess temperature can lead to detonation, wear or seizure; cowl flaps and mixture/power procedures vary by type. Oil lubricates, cools, cleans, seals and reduces noise; monitor pressure/temperature and use the POH service/check limits.
+
+The electrical system may include battery, alternator/generator, regulator, buses, breakers, relays and loads. An alternator failure leaves only limited battery capacity; shed loads as directed. Magneto ignition may continue even if radios or electrically driven instruments fail. Identify which systems are engine-, vacuum-, pressure- or electrically driven.
+
+```text
+ENGINE → magnetos → ignition
+ENGINE → alternator → electrical bus → radios / electrical loads
+                         ↑
+                      battery
+```
+
+Schematic only: the electrical and ignition installations differ by aircraft; use its actual system diagram and checklist.
+
+## 4. Flight instruments and indications
+
+| Instrument/system | Input or principle | Remember |
+|---|---|---|
+| ASI | Pitot/total and static pressure | Wind affects GS, not indicated airspeed |
+| Altimeter | Static pressure | Setting determines altitude/height/FL reference |
+| VSI | Static pressure change | Blockage/leakage causes errors; follow the POH |
+| Direct-reading compass | Earth's magnetic field | Variation, deviation, dip, turning and acceleration errors |
+| Gyro instruments | Rigidity and precession | Vacuum or electrical failure may remove different indications |
+| Engine instruments | RPM, manifold/oil/fuel pressure, temperature and fuel sensors | Read ranges and warnings using the actual aircraft's AFM |
+
+IAS, CAS, EAS, TAS and GS are distinct. Read arcs and warning lights using that aircraft's legend; red/amber/green conventions are not a substitute for the AFM.
+
+**Course notes:** [Aircraft General Knowledge lesson notes](../lesson-notes/80_Aircraft_General_Knowledge.md) · [question bank](../80_Aircraft_General_Knowledge.md)
+
+**Primary references:** [EASA Easy Access Rules for Aircrew](https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-aircrew) · [FAA Pilot's Handbook of Aeronautical Knowledge](https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak). Use the current type-specific POH/AFM for all limits and procedures.
