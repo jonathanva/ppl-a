@@ -67,6 +67,12 @@
     </div>
   </div>
   <div class="card" id="weak" aria-live="polite"></div>
+  <div class="card">
+    <b>Recover older browser history</b>
+    <p class="muted">On the browser that has your old quiz history, upload its cached topic scores and missed-question counts to the repository. This does not contain individual correct answers.</p>
+    <button id="importCache" disabled>Upload cached browser history</button>
+    <span class="muted" id="importMsg"></span>
+  </div>
   <details class="card"><summary>⚙️ Save reports to the GitHub repo (optional)</summary>
     <p class="muted">A web page cannot write to your repo by itself. Either download the report and commit it, or paste a <b>fine-grained personal access token</b> (only this repository, permission <i>Contents: read &amp; write</i>) and the quiz will commit the report into <code>results/</code> for you. Or run <code>python3 quiz/serve.py</code> locally: then it uses your own git login and needs no token. The token is stored only in this browser (localStorage).</p>
     <label class="muted">Repository (owner/name)<input type="text" id="cfgRepo" value="jonathanva/ppl-a"></label>
@@ -98,7 +104,7 @@ const REPO_URL = 'https://github.com/jonathanva/ppl-a/blob/main/';
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-const CKEY = 'ppl-quiz-config-v1';
+const HKEY = 'ppl-quiz-history-v1', CKEY = 'ppl-quiz-config-v1';
 let repoHistory = { runs: [], wrong: {} }, historyReady = false, historyRequest = 0;
 let quiz = null;
 
@@ -132,12 +138,16 @@ function showWeak() {
   const h = repoHistory; const agg = {};
   const complete = h.runs.filter(r => !r.legacy);
   complete.forEach(r => Object.entries(r.topics).forEach(([k,v]) => { agg[k] = agg[k] || [0,0]; agg[k][0] += v[0]; agg[k][1] += v[1]; }));
+  const normalReports = complete.filter(r => !r.cacheImport).length;
+  const importedQuizzes = complete.reduce((n,r) => n + (r.importedRuns || 0), 0);
   const rows = Object.entries(agg).filter(([,v]) => v[1] >= 2).map(([k,v]) => [k, v[0]/v[1], v[1]]).sort((a,b) => a[1]-b[1]).slice(0,8);
-  $('weak').innerHTML = `<b>📉 Weakest sub-topics from saved results</b> <span class="muted">(${complete.length} complete ${complete.length === 1 ? 'report' : 'reports'})</span>` +
+  $('weak').innerHTML = `<b>📉 Weakest sub-topics from saved results</b> <span class="muted">(${normalReports} complete ${normalReports === 1 ? 'report' : 'reports'}${importedQuizzes ? `, ${importedQuizzes} imported browser quizzes` : ''})</span>` +
     (rows.length ? '<table>' + rows.map(([k,p,n]) => `<tr><td>${esc(k)}</td><td>${Math.round(p*100)}% of ${n}</td></tr>`).join('') + '</table>' : '<p class="muted">Save more quizzes to see topic scores (at least two answers per topic).</p>') +
     (h.runs.length > complete.length ? `<p class="muted">${h.runs.length - complete.length} older ${h.runs.length - complete.length === 1 ? 'report is' : 'reports are'} excluded from topic scores because ${h.runs.length - complete.length === 1 ? 'it lacks' : 'they lack'} complete answer data. Missed questions still count for prioritisation.</p>` : '') +
     '<button id="refreshHistory">Refresh saved results</button>';
   $('refreshHistory').onclick = loadHistory;
+  $('importCache').disabled = !historyReady;
+  $('importCache').onclick = importBrowserHistory;
 }
 
 function legacyReport(text, name) {
@@ -160,10 +170,13 @@ function parseReport(text, name) {
   const data = JSON.parse(new TextDecoder().decode(bytes));
   if (!data || typeof data.date !== 'string' || !Array.isArray(data.answers) || typeof data.topics !== 'object' || !data.topics ||
       data.answers.some(a => typeof a.id !== 'string' || typeof a.ok !== 'boolean') ||
-      Object.values(data.topics).some(v => !Array.isArray(v) || v.length !== 2 || !Number.isInteger(v[0]) || !Number.isInteger(v[1]) || v[0] < 0 || v[1] < v[0])) {
+      Object.values(data.topics).some(v => !Array.isArray(v) || v.length !== 2 || !Number.isInteger(v[0]) || !Number.isInteger(v[1]) || v[0] < 0 || v[1] < v[0]) ||
+      (data.wrong !== undefined && Object.entries(data.wrong).some(([id,n]) => !/^\d{2}-\d{3}$/.test(id) || !Number.isSafeInteger(n) || n < 0)) ||
+      (data.kind === 'browser-cache-import' && (!Number.isSafeInteger(data.importedRuns) || data.importedRuns < 1 || typeof data.cacheId !== 'string' || typeof data.cacheAsOf !== 'string'))) {
     throw new Error(`Invalid result data in ${name}`);
   }
-  return { date: data.date, topics: data.topics, answers: data.answers, legacy:false };
+  return { date: data.date, topics: data.topics, answers: data.answers, wrong: data.wrong || {},
+    legacy:false, cacheImport:data.kind === 'browser-cache-import', importedRuns:data.importedRuns || 0, cacheId:data.cacheId || '' };
 }
 async function loadHistory() {
   const requestId = ++historyRequest;
@@ -195,8 +208,21 @@ async function loadHistory() {
       return parseReport(new TextDecoder().decode(bytes), f.path);
     }));
     runs.sort((a,b) => String(a.date).localeCompare(String(b.date)));
-    const wrong = {};
-    runs.forEach(r => r.answers.forEach(a => { wrong[a.id] = Math.max(0, (wrong[a.id] || 0) + (a.ok ? -1 : 1)); }));
+    const wrong = {}, importedWrong = {}, legacyWrong = {}, newAnswers = [];
+    let cacheAsOf = '';
+    runs.forEach(r => {
+      if (r.cacheImport) {
+        cacheAsOf = [cacheAsOf,r.cacheAsOf].sort().at(-1);
+        Object.entries(r.wrong).forEach(([id,n]) => { importedWrong[id] = (importedWrong[id] || 0) + n; });
+      }
+      else if (r.legacy) r.answers.forEach(a => { if (!a.ok) legacyWrong[a.id] = (legacyWrong[a.id] || 0) + 1; });
+      else r.answers.forEach(a => newAnswers.push({...a, date:r.date}));
+    });
+    Object.keys(importedWrong).forEach(id => { wrong[id] = Math.max(importedWrong[id], legacyWrong[id] || 0); });
+    Object.keys(legacyWrong).forEach(id => { wrong[id] = Math.max(wrong[id] || 0, legacyWrong[id]); });
+    newAnswers.filter(a => !cacheAsOf || String(a.date || '') > cacheAsOf).forEach(a => {
+      wrong[a.id] = Math.max(0, (wrong[a.id] || 0) + (a.ok ? -1 : 1));
+    });
     if (requestId !== historyRequest) return;
     repoHistory = {runs, wrong};
     historyReady = true; showWeak();
@@ -335,28 +361,93 @@ function finish() {
 
 /* ---------- save to repo via GitHub API ---------- */
 const cfg = () => JSON.parse(localStorage.getItem(CKEY) || '{}');
-async function saveToRepo(name) {
-  const c = cfg(), msg = $('saveMsg');
-  msg.textContent = 'Saving…';
+function encodeMetadata(data) {
+  let bin = ''; new TextEncoder().encode(JSON.stringify(data)).forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function metadataComment(data) {
+  return `<!-- PPL-QUIZ-RESULT-V1 ${encodeMetadata(data)} -->`;
+}
+async function uploadMarkdown(name, content) {
+  const c = cfg();
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    const r = await fetch('/api/save', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name,content}) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.message || `Local save failed (${r.status})`);
+    return j.message;
+  }
+  if (!c.token) throw new Error('No token configured. Use local mode or add a fine-grained token in the settings.');
+  const bytes = new TextEncoder().encode(content);
+  let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  const r = await fetch(`https://api.github.com/repos/${c.repo || 'jonathanva/ppl-a'}/contents/results/${name}`, {
+    method:'PUT',
+    headers:{'Authorization':'Bearer ' + c.token, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json'},
+    body:JSON.stringify({message:`Add quiz result ${name}`, content:btoa(bin), branch:c.branch || 'main'})
+  });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.message || `GitHub returned ${r.status}`);
+  return `Saved: ${j.content.html_url}`;
+}
+async function importBrowserHistory() {
+  const button = $('importCache'), msg = $('importMsg');
+  if (!historyReady) { msg.textContent = 'Load repository results before importing.'; return; }
+  button.disabled = true; msg.textContent = 'Reading cached history…';
   try {
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-      const l = await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, content: reportMarkdown() }) });
-      const j = await l.json();
-      msg.textContent = (l.ok ? '✅ ' : '❌ ') + j.message;
+    const raw = localStorage.getItem(HKEY);
+    if (!raw) throw new Error('No old quiz history was found in this browser. Use the same browser and site where you took the quizzes.');
+    const cached = JSON.parse(raw);
+    if (!cached || !Array.isArray(cached.runs) || !cached.runs.length || !cached.wrong || typeof cached.wrong !== 'object' || Array.isArray(cached.wrong)) {
+      throw new Error('The saved browser history is missing or has an unsupported format.');
+    }
+    const topics = {};
+    for (const run of cached.runs) {
+      if (!run.topics || typeof run.topics !== 'object' || Array.isArray(run.topics)) throw new Error('A cached quiz has invalid topic scores.');
+      for (const [topic,score] of Object.entries(run.topics)) {
+        if (!Array.isArray(score) || score.length !== 2 || !score.every(Number.isSafeInteger) || score[0] < 0 || score[1] < score[0]) {
+          throw new Error(`Invalid cached score for ${topic}.`);
+        }
+        topics[topic] = topics[topic] || [0,0];
+        topics[topic][0] += score[0]; topics[topic][1] += score[1];
+      }
+    }
+    const wrong = {};
+    for (const [id,count] of Object.entries(cached.wrong)) {
+      if (!/^\d{2}-\d{3}$/.test(id) || !Number.isSafeInteger(count) || count < 0) throw new Error(`Invalid cached question priority for ${id}.`);
+      if (count) wrong[id] = count;
+    }
+    const cacheData = JSON.stringify({runs:cached.runs, wrong});
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(cacheData));
+    const cacheId = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2,'0')).join('');
+    if (repoHistory.runs.some(r => r.cacheId === cacheId)) {
+      msg.textContent = 'This browser history has already been uploaded.';
       return;
     }
-  } catch (e) { msg.textContent = '❌ Local save failed: ' + e.message; return; }
-  if (!c.token) { msg.textContent = 'No token configured and local save server not running. Use Download, run python3 quiz/serve.py, or add a token in the ⚙️ panel.'; return; }
-  const bytes = new TextEncoder().encode(reportMarkdown());
-  let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+    const dates = cached.runs.map(r => Date.parse(r.date)).filter(Number.isFinite);
+    const cacheAsOf = dates.length ? new Date(Math.max(...dates)).toISOString() : new Date().toISOString();
+    const data = {kind:'browser-cache-import', date:new Date().toISOString(), cacheAsOf, importedRuns:cached.runs.length, topics, wrong, answers:[], cacheId};
+    let report = `# Imported PPL(A) browser quiz history\n\n**Quizzes recovered:** ${data.importedRuns}  \n**Topic answers recovered:** ${Object.values(topics).reduce((n,v) => n + v[1],0)}  \n**Outstanding missed-question counts:** ${Object.keys(wrong).length}\n\n`;
+    if (Object.keys(topics).length) {
+      report += `## Recovered topic scores\n\n| Sub-topic | Score | % |\n|---|---:|---:|\n`;
+      Object.entries(topics).forEach(([topic,[correct,total]]) => { report += `| ${topic} | ${correct}/${total} | ${Math.round(correct/total*100)}% |\n`; });
+      report += '\n';
+    }
+    report += `This import contains the browser's saved aggregate topic scores and outstanding missed-question counts. It cannot recover individual answers that were not stored.\n\n${metadataComment(data)}\n`;
+    const stamp = new Date().toISOString().replace(/[-:.TZ]/g,'');
+    const name = `quiz-${stamp}-${Math.floor(Math.random()*1000000)}.md`;
+    msg.textContent = 'Uploading cached history…';
+    const result = await uploadMarkdown(name, report);
+    await loadHistory();
+    msg.textContent = `✅ ${result} Recovered ${data.importedRuns} quizzes.`;
+  } catch (e) {
+    msg.textContent = `❌ ${e.message}`;
+  } finally { button.disabled = !historyReady; }
+}
+async function saveToRepo(name) {
+  const msg = $('saveMsg');
+  msg.textContent = 'Saving…';
   try {
-    const r = await fetch(`https://api.github.com/repos/${c.repo}/contents/results/${name}`, {
-      method: 'PUT',
-      headers: { 'Authorization': 'Bearer ' + c.token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Add quiz result ${name}`, content: btoa(bin), branch: c.branch })
-    });
-    const j = await r.json();
-    msg.innerHTML = r.ok ? `✅ Saved: <a target="_blank" href="${esc(j.content.html_url)}">results/${esc(name)}</a>` : `❌ ${esc(j.message || r.status)}`;
+    msg.textContent = '✅ ' + await uploadMarkdown(name, reportMarkdown());
+    await loadHistory();
   } catch (e) { msg.textContent = '❌ ' + e.message; }
 }
 const c0 = cfg(); if (c0.repo) { $('cfgRepo').value = c0.repo; $('cfgBranch').value = c0.branch || 'main'; $('cfgToken').value = c0.token || ''; }
